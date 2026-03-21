@@ -3,6 +3,7 @@
 	"version": "1.0.0-beta.2",
 	"description": "Get Material color from React Native app",
 	"license": "MIT",
+	"author": "RakaDoank <rakaaudira@gmail.com> (https://github.com/RakaDoank)",
 	"homepage": "https://github.com/RakaDoank/material-color-react-native",
 	"repository": "https://github.com/RakaDoank/material-color-react-native",
 	"files": [
@@ -29,7 +30,7 @@
 		"react-native": ">=0.79"
 	},
 	"codegenConfig": {
-		"name": "RTNMaterialColorSpec",
+		"name": "MaterialColorSpec",
 		"type": "all",
 		"jsSrcsDir": "./src/_native-modules",
 		"android": {
