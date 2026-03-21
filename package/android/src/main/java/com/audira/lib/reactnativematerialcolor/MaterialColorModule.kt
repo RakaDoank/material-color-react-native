@@ -15,11 +15,13 @@ class MaterialColorModule(reactApplicationContext: ReactApplicationContext) : Na
   override fun sourceColorFromImageUri(
     uri: String,
     signalID: String,
+    maxWidthOrHeight: Double?,
     promise: Promise,
   ) {
     ImageUtils.sourceColorFromImageUri(
       uri,
       reactApplicationContext,
+      maxWidthOrHeight?.toInt(),
       {
         mapOfSignalIDToGlideTarget.put(signalID, it)
       }
@@ -32,11 +34,13 @@ class MaterialColorModule(reactApplicationContext: ReactApplicationContext) : Na
   override fun sourceHexColorFromImageUri(
     uri: String,
     signalID: String,
+    maxWidthOrHeight: Double?,
     promise: Promise,
   ) {
     ImageUtils.sourceColorFromImageUri(
       uri,
       reactApplicationContext,
+      maxWidthOrHeight?.toInt(),
       {
         mapOfSignalIDToGlideTarget.put(signalID, it)
       },

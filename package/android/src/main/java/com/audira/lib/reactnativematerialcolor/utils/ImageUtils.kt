@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import com.audira.lib.reactnativematerialcolor.quantize.QuantizerCelebi
 import com.audira.lib.reactnativematerialcolor.score.Score
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.facebook.react.bridge.ReactApplicationContext
@@ -20,12 +21,22 @@ object ImageUtils {
   fun sourceColorFromImageUri(
     uri: String,
     reactApplicationContext: ReactApplicationContext,
+    maxWidthOrHeight: Int?,
     targetCallback: (target: SimpleTarget<Bitmap>) -> Unit,
     callback: (color: Int?) -> Unit,
   ) {
     val target = Glide.with(reactApplicationContext)
       .asBitmap()
       .load(uri.toUri())
+      .apply(object : RequestOptions() {
+        override fun override(size: Int): RequestOptions {
+          if(maxWidthOrHeight != null && maxWidthOrHeight > 0) {
+            return super.override(maxWidthOrHeight)
+          } else {
+            return super.override(size)
+          }
+        }
+      })
       // At this moment, just skip the memory cache
       // because this library is not doing anything to the Android Lifecycle
       .skipMemoryCache(true)

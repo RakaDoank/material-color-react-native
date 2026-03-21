@@ -14,6 +14,12 @@ export interface Spec extends TurboModule {
 		 * String respresent as an ID for a signal to abort specific target
 		 */
 		signalID: string,
+		/**
+		 * Increase performance by limiting the maximum width or height pixel of image processing.
+		 * `null` means use the original image size
+		 * @default null
+		 */
+		maxWidthOrHeight: CodegenTypes.Int32 | null,
 	) => Promise<CodegenTypes.Int32 | null>,
 
 	/**
@@ -26,6 +32,12 @@ export interface Spec extends TurboModule {
 		 * String respresent as an ID for a signal to abort specific target
 		 */
 		signalID: string,
+		/**
+		 * Increase performance by limiting the maximum width or height pixel of image processing.
+		 * `null` means use the original image size
+		 * @default null
+		 */
+		maxWidthOrHeight: CodegenTypes.Int32 | null,
 	) => Promise<string | null>,
 
 	cancelSourceColorFromImageUri: (signalID: string) => void,

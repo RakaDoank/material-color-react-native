@@ -18,7 +18,13 @@ export function sourceHexColorFromImageUri(uri: string, options?: SourceColorFro
 
 	return sourceColorFromImageUriController(
 		() => {
-			return NativeMaterialColor.sourceHexColorFromImageUri(uri, signalID)
+			return NativeMaterialColor.sourceHexColorFromImageUri(
+				uri,
+				signalID,
+				typeof options?.maxWidthOrHeight === "number"
+					? options?.maxWidthOrHeight > 0 ? options.maxWidthOrHeight : null
+					: null,
+			)
 		},
 		() => {
 			NativeMaterialColor.cancelSourceColorFromImageUri(signalID)

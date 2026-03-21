@@ -17,7 +17,13 @@ export function sourceColorFromImageUri(uri: string, options?: SourceColorFromIm
 
 	return sourceColorFromImageUriController(
 		() => {
-			return NativeMaterialColor.sourceColorFromImageUri(uri, signalID)
+			return NativeMaterialColor.sourceColorFromImageUri(
+				uri,
+				signalID,
+				typeof options?.maxWidthOrHeight === "number"
+					? options?.maxWidthOrHeight > 0 ? options.maxWidthOrHeight : null
+					: null,
+			)
 		},
 		() => {
 			NativeMaterialColor.cancelSourceColorFromImageUri(signalID)
