@@ -217,6 +217,7 @@ export function Page() {
 				<ButtonLoadingImperative
 					mode="outlined"
 					onPress={ fromImage as () => void }
+					ref={ buttonImageRef }
 				>
 					From Image
 				</ButtonLoadingImperative>
