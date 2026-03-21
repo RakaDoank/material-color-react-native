@@ -1,0 +1,39 @@
+{
+	"name": "material-color-react-native",
+	"version": "1.0.0-beta.1",
+	"description": "Get Material color from React Native app",
+	"license": "MIT",
+	"homepage": "https://rakadoank.github.io/react-native-material-color",
+	"repository": "https://github.com/RakaDoank/react-native-material-color",
+	"files": [
+		"android",
+		"apple",
+		"lib",
+		"src"
+	],
+	"exports": {
+		".": {
+			"import": {
+				"types": "./lib/typescript/module/index.d.ts",
+				"default": "./lib/module/index.js"
+			},
+			"require": {
+				"types": "./lib/typescript/commonjs/index.d.ts",
+				"default": "./lib/commonjs/index.js"
+			}
+		}
+	},
+	"peerDependencies": {
+		"@material/material-color-utilities": "^0.4.0",
+		"react-dom": ">=17",
+		"react-native": ">=0.79"
+	},
+	"codegenConfig": {
+		"name": "RTNMaterialColorSpec",
+		"type": "all",
+		"jsSrcsDir": "./src/_native-modules",
+		"android": {
+			"javaPackageName": "com.audira.lib.reactnativematerialcolor"
+		}
+	}
+}

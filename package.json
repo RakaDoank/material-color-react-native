@@ -1,0 +1,29 @@
+{
+	"name": "material-color-react-native",
+	"private": true,
+	"scripts": {
+		"code-check": "npm run type-check && npm run lint",
+		"lint": "eslint .",
+		"package-builder": "package-builder",
+		"type-check": "tsc --build"
+	},
+	"devDependencies": {
+		"@eslint/compat": "2.0.3",
+		"@react-native/eslint-config": "0.83.2",
+		"@stylistic/eslint-plugin": "5.10.0",
+		"@types/node": "^24",
+		"@types/react": "19.2.14",
+		"@types/react-dom": "19.2.3",
+		"@types/react-native-web": "0.19.2",
+		"eslint": "9.39.4",
+		"eslint-import-resolver-typescript": "4.4.4",
+		"eslint-plugin-import-x": "4.16.2",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "7.0.1",
+		"eslint-plugin-react-native": "^5.0.0",
+		"globals": "^17.4.0",
+		"package-builder": "workspace:*",
+		"typescript": "5.9.3",
+		"typescript-eslint": "8.57.1"
+	}
+}

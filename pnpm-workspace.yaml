@@ -1,0 +1,13 @@
+catalog:
+  react-native-builder-bob: 0.40.18
+
+engineStrict: true
+
+nodeLinker: hoisted
+
+packages:
+  - 'example'
+  - 'package'
+  - 'package-builder'
+
+strictPeerDependencies: false

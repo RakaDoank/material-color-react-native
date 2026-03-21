@@ -1,0 +1,22 @@
+{
+	"extends": [	
+		"expo/tsconfig.base",
+		"../tsconfig.base.json"
+	],
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./src/*/index"],
+			"react-native-material-color": ["../package/src/index"]
+		},
+		"types": [
+			"react-native-web"
+		]
+	},
+	"include": [
+		"../package/src/**/*",
+		"./app.config.ts",
+		"./src/**/*",
+		".expo/types/**/*.ts",
+		"expo-env.d.ts"
+	]
+}
