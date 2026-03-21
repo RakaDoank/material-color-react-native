@@ -23,7 +23,7 @@ import {
 	AndroidDynamicColor,
 	MaterialColor,
 	type ColorScheme,
-} from "react-native-material-color"
+} from "material-color-react-native"
 
 import {
 	Appbar,

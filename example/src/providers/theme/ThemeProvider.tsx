@@ -16,7 +16,7 @@ import {
 import {
 	AndroidDynamicColor,
 	MaterialColor,
-} from "react-native-material-color"
+} from "material-color-react-native"
 
 import {
 	MD3DarkTheme,

@@ -27,7 +27,7 @@ export default EslintConfig.defineConfig([
 		"**/dist/",
 		"**/node_modules/",
 		"**/.expo/",
-		"./package/*/lib/",
+		"./package/lib/",
 		"**/expo-env.d.ts",
 	]),
 

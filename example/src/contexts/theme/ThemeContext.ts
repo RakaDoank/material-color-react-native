@@ -4,7 +4,7 @@ import {
 
 import type {
 	ColorScheme,
-} from "react-native-material-color"
+} from "material-color-react-native"
 
 export interface ThemeContext {
 	setThemeByColor: (hexColor: string) => void,
