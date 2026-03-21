@@ -6,7 +6,9 @@
 		"android": "expo run:android --variant debugOptimized",
 		"ios": "expo run:ios",
 		"prebuild": "expo prebuild",
-		"prebuild:clean": "expo prebuild --clean"
+		"prebuild:clean": "expo prebuild --clean",
+    	"start": "expo start",
+		"web": "npm run start -- --web"
 	},
 	"dependencies": {
 		"expo": "55.0.8",

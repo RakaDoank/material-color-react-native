@@ -21,7 +21,7 @@ export default {
 
 	orientation: "default",
 
-	platforms: ["android", "web"],
+	platforms: ["android", "ios", "web"],
 
 	userInterfaceStyle: "automatic",
 
@@ -36,16 +36,15 @@ export default {
 		package: packageName,
 	},
 
-	// In progress to support the iOS
-	// ios: {
-	// 	buildNumber: versionCode.toString(),
-	// 	supportsTablet: true,
-	// 	bundleIdentifier: packageName,
-	// 	icon: "./assets/images/android-icon-foreground.png",
-	// 	config: {
-	// 		usesNonExemptEncryption: false,
-	// 	},
-	// },
+	ios: {
+		buildNumber: versionCode.toString(),
+		supportsTablet: true,
+		bundleIdentifier: packageName,
+		icon: "./assets/android-icon-foreground.png",
+		config: {
+			usesNonExemptEncryption: false,
+		},
+	},
 
 	plugins: [
 		[
