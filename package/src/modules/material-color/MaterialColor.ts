@@ -1,6 +1,7 @@
 import {
 	Appearance,
 	Image,
+	Platform,
 	type ImageSourcePropType,
 } from "react-native"
 
@@ -120,7 +121,9 @@ export class MaterialColor implements MaterialColorInterface {
 		materialOptions?: Parameters<typeof MaterialColor.fromSourceColor>[1],
 		imageUriOptions?: ImageUtils.SourceColorFromImageUriOptions,
 	) {
-		const assetSource = Image.resolveAssetSource(source)
+		const assetSource = Platform.OS === "web"
+			? { uri: typeof source === "object" && "uri" in source ? source.uri! : "" }
+			: Image.resolveAssetSource(source)
 		return MaterialColor.fromSourceImageUri(assetSource.uri, materialOptions, imageUriOptions)
 	}
 
