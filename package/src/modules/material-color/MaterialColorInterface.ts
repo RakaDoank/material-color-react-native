@@ -3,5 +3,9 @@ import type {
 } from "../../types"
 
 export interface MaterialColorInterface {
+	/**
+	 * Source color in Hex code
+	 */
+	readonly sourceColor: string,
 	readonly colorScheme: ColorScheme,
 }

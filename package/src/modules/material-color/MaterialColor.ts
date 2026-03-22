@@ -10,6 +10,7 @@ import {
 	Hct,
 	Variant,
 	argbFromHex,
+	hexFromArgb,
 } from "@material/material-color-utilities"
 
 import {
@@ -35,6 +36,8 @@ import type {
  * 3. You can also use the `MaterialColor.fromSourceImage` or `MaterialColor.fromSourceImageUri` static method to get material color
  */
 export class MaterialColor implements MaterialColorInterface {
+
+	readonly sourceColor: string
 
 	readonly colorScheme: MaterialColorInterface["colorScheme"]
 
@@ -160,6 +163,7 @@ export class MaterialColor implements MaterialColorInterface {
 	) {
 		this.dynamicScheme = new DynamicScheme(args)
 		this.colorScheme = new ColorSchemeDelegate(this.dynamicScheme)
+		this.sourceColor = hexFromArgb(args.sourceColorHct.toInt())
 	}
 
 }
