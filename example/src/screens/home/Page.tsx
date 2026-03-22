@@ -47,8 +47,8 @@ import {
 	type ModalInputColorRef,
 } from "./_modal-input-color"
 
-// import Wallpaper from "./_nougat-wallpaper.png"
-import Wallpaper from "./_wallpaper.png"
+import StaticImage1 from "./_nougat-wallpaper.png"
+import StaticImage2 from "./_wallpaper.png"
 
 export function Page() {
 
@@ -56,10 +56,16 @@ export function Page() {
 		colorSchemePrintViewRef =
 			useRef<ColorSchemePrintViewRef>(null),
 
-		buttonStaticImageRef =
+		buttonStaticImage1Ref =
 			useRef<ButtonLoadingImperativeRef>(null),
 
-		buttonImageRef =
+		buttonStaticImage2Ref =
+			useRef<ButtonLoadingImperativeRef>(null),
+
+		buttonLocalImageRef =
+			useRef<ButtonLoadingImperativeRef>(null),
+
+		buttonRemoteImageRef =
 			useRef<ButtonLoadingImperativeRef>(null),
 
 		modalInputColorRef =
@@ -74,7 +80,7 @@ export function Page() {
 		getAndroidDynamicColor =
 			() => {
 				const colorScheme = AndroidDynamicColor.dynamic()
-				colorSchemePrintViewRef.current?.setText(colorScheme)
+				colorSchemePrintViewRef.current?.setText("Android Dynamic Color", colorScheme)
 				themeContext.setColors(colorScheme)
 				ExpoStatusBar.setStatusBarStyle(
 					Appearance.getColorScheme() === "dark" ? "light" : "dark",
@@ -84,7 +90,7 @@ export function Page() {
 		getAndroidDynamicDarkColor =
 			() => {
 				const colorScheme = AndroidDynamicColor.dark()
-				colorSchemePrintViewRef.current?.setText(colorScheme)
+				colorSchemePrintViewRef.current?.setText("Android Dynamic Dark", colorScheme)
 				themeContext.setColors(colorScheme, true)
 				ExpoStatusBar.setStatusBarStyle("light")
 			},
@@ -92,19 +98,32 @@ export function Page() {
 		getAndroidDynamicLightColor =
 			() => {
 				const colorScheme = AndroidDynamicColor.light()
-				colorSchemePrintViewRef.current?.setText(colorScheme)
+				colorSchemePrintViewRef.current?.setText("Android Dynamic Light", colorScheme)
 				themeContext.setColors(colorScheme, false)
 				ExpoStatusBar.setStatusBarStyle("dark")
 			},
 
 		fromStaticImage =
-			() => {
-				buttonStaticImageRef.current?.setLoading(true)
+			(
+				image: typeof StaticImage1,
+				buttonRef: ButtonLoadingImperativeRef | null,
+			) => {
+				buttonRef?.setLoading(true)
 
-				MaterialColor.fromSourceImage(Wallpaper)
+				MaterialColor.fromSourceImage(
+					image,
+
+					// material color options
+					undefined,
+
+					// other options
+					{
+						// maxWidthOrHeight: 1920,
+					},
+				)
 					.then(res => {
 						if(res) {
-							colorSchemePrintViewRef.current?.setText(res.colorScheme)
+							colorSchemePrintViewRef.current?.setText(res.sourceColor, res.colorScheme)
 							themeContext.setColors(res.colorScheme)
 						}
 					})
@@ -112,16 +131,16 @@ export function Page() {
 						// NOOP
 					})
 					.finally(() => {
-						buttonStaticImageRef.current?.setLoading(false)
+						buttonRef?.setLoading(false)
 					})
 			},
 
-		fromImage =
+		fromLocalImage =
 			async () => {
-				buttonImageRef.current?.setLoading(true)
+				buttonLocalImageRef.current?.setLoading(true)
 
 				try {
-					const image = await ExpoImagePicker .launchImageLibraryAsync({
+					const image = await ExpoImagePicker.launchImageLibraryAsync({
 						mediaTypes: "images",
 					})
 					const uri = image.assets?.[0]?.uri
@@ -130,18 +149,62 @@ export function Page() {
 						throw new Error()
 					}
 
-					const materialColor = await MaterialColor.fromSourceImageUri(uri)
+					const materialColor = await MaterialColor.fromSourceImageUri(
+						uri,
+
+						// material color options
+						undefined,
+
+						// other options
+						{
+							// maxWidthOrHeight: 1920,
+						},
+					)
 
 					if(!materialColor) {
 						throw new Error()
 					}
 
-					colorSchemePrintViewRef.current?.setText(materialColor.colorScheme)
+					colorSchemePrintViewRef.current?.setText(materialColor.sourceColor, materialColor.colorScheme)
 					themeContext.setColors(materialColor.colorScheme)
 				} catch {
 					// NOOP
 				} finally {
-					buttonImageRef.current?.setLoading(false)
+					buttonLocalImageRef.current?.setLoading(false)
+				}
+			},
+
+		fromRemoteImage =
+			async () => {
+				buttonRemoteImageRef.current?.setLoading(true)
+
+				try {
+					const materialColor = await MaterialColor.fromSourceImageUri(
+
+						// Image thumbnail of a YouTube video
+						// See the video at https://www.youtube.com/watch?v=XGxIE1hr0w4
+						"https://i3.ytimg.com/vi/XGxIE1hr0w4/maxresdefault.jpg",
+
+						// material color options
+						undefined,
+
+						// other options
+						{
+							// maxWidthOrHeight: 1920,
+						},
+
+					)
+
+					if(!materialColor) {
+						throw new Error()
+					}
+
+					colorSchemePrintViewRef.current?.setText(materialColor.sourceColor, materialColor.colorScheme)
+					themeContext.setColors(materialColor.colorScheme)
+				} catch {
+					// NOOP
+				} finally {
+					buttonRemoteImageRef.current?.setLoading(false)
 				}
 			},
 
@@ -153,7 +216,7 @@ export function Page() {
 		onSubmitModalInputColor: ModalInputColorProps["onSubmit"] =
 			hexColor => {
 				const colorScheme = MaterialColor.fromSourceColor(hexColor).colorScheme
-				colorSchemePrintViewRef.current?.setText(colorScheme)
+				colorSchemePrintViewRef.current?.setText(hexColor, colorScheme)
 				themeContext.setColors(colorScheme)
 			},
 
@@ -175,9 +238,12 @@ export function Page() {
 					: GlobalStyleSheet.g.flex_col,
 			] }
 		>
-			<View
+			<ScrollView
 				style={ [
 					GlobalStyleSheet.g.flex_1,
+				] }
+				contentContainerStyle={ [
+					GlobalStyleSheet.g.grow,
 					GlobalStyleSheet.g.justify_center,
 					GlobalStyleSheet.g.items_center,
 					styleSheet.buttonsContainer,
@@ -207,28 +273,44 @@ export function Page() {
 				</>) }
 
 				<ButtonLoadingImperative
-					mode="outlined"
-					onPress={ fromStaticImage }
-					ref={ buttonStaticImageRef }
+					mode="contained-tonal"
+					onPress={ () => fromStaticImage(StaticImage1, buttonStaticImage1Ref.current) }
+					ref={ buttonStaticImage1Ref }
 				>
-					From Static Image
+					Use Static Import Image 1
+				</ButtonLoadingImperative>
+
+				<ButtonLoadingImperative
+					mode="contained-tonal"
+					onPress={ () => fromStaticImage(StaticImage2, buttonStaticImage2Ref.current) }
+					ref={ buttonStaticImage2Ref }
+				>
+					Use Static Import Image 2
 				</ButtonLoadingImperative>
 
 				<ButtonLoadingImperative
 					mode="outlined"
-					onPress={ fromImage as () => void }
-					ref={ buttonImageRef }
+					onPress={ fromLocalImage as () => void }
+					ref={ buttonLocalImageRef }
 				>
-					From Image
+					Use Local Image
+				</ButtonLoadingImperative>
+
+				<ButtonLoadingImperative
+					mode="outlined"
+					onPress={ fromRemoteImage as () => void }
+					ref={ buttonRemoteImageRef }
+				>
+					Use Remote Image
 				</ButtonLoadingImperative>
 
 				<Button
 					mode="text"
 					onPress={ showModalInputColor }
 				>
-					From Hex Color
+					Use Hex Color
 				</Button>
-			</View>
+			</ScrollView>
 
 			<ColorSchemePrintView
 				ref={ colorSchemePrintViewRef }
@@ -275,6 +357,7 @@ interface ColorSchemePrintViewProps extends ScrollViewProps {
 
 interface ColorSchemePrintViewRef {
 	setText: (
+		colorSource: string,
 		colorScheme: ColorScheme,
 	) => void,
 }
@@ -295,10 +378,11 @@ function ColorSchemePrintView({
 
 	useImperativeHandle(ref, () => {
 		return {
-			setText(colorScheme) {
+			setText(colorSource, colorScheme) {
 				let nextText = ""
 
 				nextText += "{"
+				nextText += `\n "<colorSource>": "${colorSource}"`
 				Object.entries(colorScheme).forEach(([key, val]) => {
 					nextText += `\n  "${key}": "${val}",`
 				})
