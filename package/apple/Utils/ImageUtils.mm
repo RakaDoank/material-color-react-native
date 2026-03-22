@@ -77,7 +77,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
   // DO NOT FORGET TO FREE THIS
   uint32_t *pixels =
-    [self copyPixelsFromImage:bitmap width:&width height:&height]; // IN RGBA
+    [self copyPixelsFromImage:bitmap width:&width height:&height]; // IN ARGB
 
   if(!pixels) {
     return nil;
@@ -89,20 +89,13 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
   for(size_t i = 0; i < pixelCount; i += 4) {
     uint32_t pixel = pixels[i];
-    uint8_t r = (pixel >> 24) & 0xFF;
-    uint8_t g = (pixel >> 16) & 0xFF;
-    uint8_t b = (pixel >> 8)  & 0xFF;
-    uint8_t a = (pixel) & 0xFF;
-  
-    if(a >= 255) {
-      // convert it to ARGB
-      uint32_t argb =
-        (a << 24) |
-        (r << 16) |
-        (g << 8)  |
-        (b);
+    uint8_t a = (pixel >> 24) & 0xFF;
+//    uint8_t r = (pixel >> 16) & 0xFF;
+//    uint8_t g = (pixel >> 8) & 0xFF;
+//    uint8_t b = (pixel) & 0xFF;
 
-      filteredPixels.push_back(argb);
+    if(a >= 255) {
+      filteredPixels.push_back(pixel);
     }
   }
 
@@ -110,7 +103,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
   material_color_utilities::QuantizerResult result =
     material_color_utilities::QuantizeCelebi(filteredPixels, 128);
-  
+
   std::vector<material_color_utilities::Argb> ranked =
     material_color_utilities::RankedSuggestions(result.color_to_count);
 
@@ -126,8 +119,9 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
   CGFloat targetSizeFloat = [targetSizeNumber doubleValue];
 
   UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat defaultFormat];
-  format.opaque = YES;
-  format.scale = 1.0; // avoid Retina scaling suprises
+  format.opaque         = true;
+  format.scale          = 1.0; // avoid Retina scaling suprises
+  format.preferredRange = UIGraphicsImageRendererFormatRangeStandard;
 
   UIGraphicsImageRenderer *imageRenderer = [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(targetSizeFloat, targetSizeFloat) format:format];
 
@@ -140,7 +134,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
 /**
  * DO NOT FORGET TO FREE THE PIXELS
- * The pixels is in RGBA color space
+ * The pixels is in ARGB color space
  */
 + (uint32_t *)copyPixelsFromImage:(UIImage *)image
                             width:(size_t *)width
@@ -165,7 +159,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
   }
 
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-  CGContextRef context = CGBitmapContextCreate(pixels, *width, *height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Host);
+  CGContextRef context = CGBitmapContextCreate(pixels, *width, *height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host);
 
   if(!context) {
     CGColorSpaceRelease(colorSpace);
