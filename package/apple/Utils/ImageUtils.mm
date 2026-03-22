@@ -31,7 +31,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
         didResult(color);
       });
     });
-    
+
     didCreateDispatch(dispatchBlock);
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), dispatchBlock);
@@ -53,9 +53,9 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
         didResult(color);
       });
     });
-  
+
     didCreateDispatch(dispatchBlock);
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), dispatchBlock);
   }];
 
@@ -73,7 +73,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
     [self resizeImage:bitmap targetSize:maxWidthOrHeight];
   }
 
-  size_t width, height;
+  size_t width, height; // assigned by copyPixelsFromImage
 
   // DO NOT FORGET TO FREE THIS
   uint32_t *pixels =
@@ -86,7 +86,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
   size_t pixelCount = width * height;
 
   std::vector<material_color_utilities::Argb> filteredPixels = {}; // IN ARGB
-  
+
   for(size_t i = 0; i < pixelCount; i += 4) {
     uint32_t pixel = pixels[i];
     uint8_t r = (pixel >> 24) & 0xFF;
@@ -115,7 +115,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
     material_color_utilities::RankedSuggestions(result.color_to_count);
 
   material_color_utilities::Argb top = ranked.front();
-  
+
   return [NSNumber numberWithInt:top];
 }
 
@@ -125,14 +125,15 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
   NSNumber *targetSizeNumber = [NSNumber numberWithInteger:targetSize];
   CGFloat targetSizeFloat = [targetSizeNumber doubleValue];
 
-  // +++++ Begin Image Context +++++
-  UIGraphicsBeginImageContextWithOptions(CGSizeMake(targetSizeFloat, targetSizeFloat), YES, 1.0);
-  
-  [image drawInRect:CGRectMake(0, 0, targetSizeFloat, targetSizeFloat)];
-  UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat defaultFormat];
+  format.opaque = YES;
+  format.scale = 1.0; // avoid Retina scaling suprises
 
-  UIGraphicsEndImageContext();
-  // ----- End Image Context -----
+  UIGraphicsImageRenderer *imageRenderer = [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(targetSizeFloat, targetSizeFloat) format:format];
+
+  UIImage *result = [imageRenderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+    [image drawInRect:CGRectMake(0, 0, targetSizeFloat, targetSizeFloat)];
+  }];
 
   return result;
 }
@@ -142,8 +143,8 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
  * The pixels is in RGBA color space
  */
 + (uint32_t *)copyPixelsFromImage:(UIImage *)image
-                           width:(size_t *)width
-                          height:(size_t *)height
+                            width:(size_t *)width
+                           height:(size_t *)height
 {
   CGImageRef cgImage = image.CGImage;
   if(!cgImage) {
