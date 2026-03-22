@@ -28,13 +28,13 @@
 {
   [self sourceColorFromImageUriBaseHandler:uri signalID:signalID maxWidthOrHeight:maxWidthOrHeight didResult:^(NSNumber *color){
     uint32_t colorInt = [color intValue];
-    std::string hexColor = material_color_utilities::HexFromArgb(colorInt);
+    std::string hexColor = material_color_utilities::HexFromArgb(colorInt).substr(2);
 
     if(hexColor[0] != '#') {
       hexColor = "#" + hexColor;
     }
 
-    resolve([NSString stringWithCString:hexColor.c_str() encoding:[NSString defaultCStringEncoding]]);
+    resolve([NSString stringWithUTF8String:hexColor.c_str()]);
   }];
 }
 
