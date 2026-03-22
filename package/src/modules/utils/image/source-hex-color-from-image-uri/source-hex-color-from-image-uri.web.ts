@@ -11,6 +11,7 @@ import {
 } from "../source-color-from-image-uri"
 
 /**
+ * This is same as `sourceColorFromImageUri`, but the result is in Hex string that has been transformed on the native side.
  * @param uri Image uri file
  * @returns Hex color string
  */
