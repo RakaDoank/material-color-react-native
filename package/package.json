@@ -22,7 +22,8 @@
 				"types": "./lib/typescript/commonjs/index.d.ts",
 				"default": "./lib/commonjs/index.js"
 			}
-		}
+		},
+		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
 		"@material/material-color-utilities": "^0.4.0",
@@ -31,7 +32,7 @@
 	},
 	"codegenConfig": {
 		"name": "MaterialColorSpec",
-		"type": "all",
+		"type": "modules",
 		"jsSrcsDir": "./src/_native-modules",
 		"android": {
 			"javaPackageName": "com.audira.lib.reactnativematerialcolor"

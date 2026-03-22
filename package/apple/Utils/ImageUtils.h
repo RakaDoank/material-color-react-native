@@ -2,8 +2,8 @@
 
 + (void)sourceColorFromImageUri:(NSString *)uri
                maxWidthOrHeight:(NSUInteger)maxWidthOrHeight
-             didCreatedDispatch:(void (^)(dispatch_block_t dispatchBlock))didCreatedDispatch
-                 didCreatedTask:(void (^)(NSURLSessionDataTask *task))didCreatedTask
+              didCreateDispatch:(void (^)(dispatch_block_t dispatchBlock))didCreateDispatch
+                  didCreateTask:(void (^)(NSURLSessionDataTask *task))didCreateTask
                       didResult:(void (^)(NSNumber *color))didResult;
 
 + (NSNumber *)sourceColorFromImage:(UIImage *)image

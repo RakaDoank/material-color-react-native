@@ -5,7 +5,7 @@
 		"composite": true,
 		"esModuleInterop": true,
 		"isolatedModules": true,
-		"moduleSuffixes": [".native", ".web", ""],
+		"moduleSuffixes": [".android", ".ios", ".macos", ".windows", ".native", ".web", ""],
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
