@@ -14,8 +14,8 @@ import {
 } from "@react-navigation/native"
 
 import {
-	AndroidDynamicColor,
-	MaterialColor,
+	useAndroidDynamicColorCompat,
+	useMaterialColor,
 } from "material-color-react-native"
 
 import {
@@ -41,77 +41,102 @@ export function ThemeProvider({
 		colorScheme =
 			useColorScheme(),
 
-		isDarkSelf =
+		isDarkColorScheme =
 			colorScheme === "dark",
 
-		[colors, setColors] =
-			// You might want to save your color preferences in a persisted storage,
-			// e.g. `react-native-mmkv`, `react-native-async-storage`, `@op-engineering/op-sqlite`, etc.
-			useState<{
-				schemes: typeof MD3LightTheme["colors"],
-				overrideIsDark?: boolean,
-			}>(() => {
-				if(AndroidDynamicColor.isSupported()) {
-					return {
-						schemes: {
-							...(isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors),
-							...AndroidDynamicColor.dynamic(),
-						},
-						overrideIsDark: isDarkSelf,
-					}
-				}
+		// [colors, setColors] =
+		// 	// You might want to save your color preferences in a persisted storage,
+		// 	// e.g. `react-native-mmkv`, `react-native-async-storage`, `@op-engineering/op-sqlite`, etc.
+		// 	useState<{
+		// 		schemes: typeof MD3LightTheme["colors"],
+		// 		overrideIsDark?: boolean,
+		// 	}>(() => {
+		// 		if(AndroidDynamicColor.isSupported()) {
+		// 			return {
+		// 				schemes: {
+		// 					...(isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors),
+		// 					...AndroidDynamicColor.dynamic(),
+		// 				},
+		// 				overrideIsDark: isDarkSelf,
+		// 			}
+		// 		}
 
-				return {
-					schemes: isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors,
-					overrideIsDark: isDarkSelf,
-				}
+		// 		return {
+		// 			schemes: isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors,
+		// 			overrideIsDark: isDarkSelf,
+		// 		}
+		// 	}),
+
+		[state, setState] =
+			useState<{
+				sourceColor: string,
+				withAndroidDynamicColor: "light" | "dark" | "dynamic" | null,
+			}>({
+				sourceColor: initialSourceColor,
+				withAndroidDynamicColor: null,
 			}),
 
-		setThemeByColor: ThemeContext["setThemeByColor"] =
-			useCallback(color => {
-				const material = MaterialColor.fromSourceColor(color)
-				setColors({
-					schemes: {
-						...(isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors),
-						...material.colorScheme,
-					},
-				})
+		androidDynamicColor =
+			useAndroidDynamicColorCompat(
+				state.sourceColor,
+				{
+					isDark: state.withAndroidDynamicColor == "dark"
+						? true
+						: state.withAndroidDynamicColor == "light"
+							? false
+							: undefined,
+				},
+			),
+
+		materialColor =
+			useMaterialColor(state.sourceColor),
+
+		setAndroidDynamicColor: ThemeContext["setAndroidDynamicColor"] =
+			useCallback(theme => {
+				setState(currState => ({
+					sourceColor: currState.sourceColor,
+					withAndroidDynamicColor: theme,
+				}))
 			}, [
-				isDarkSelf,
-				setColors, // This dep is not needed if i stop the continous vars
+				setState, // becaues the continous vars
 			]),
 
-		/**
-		 * It's for `AndroidDynamicColor`
-		 */
-		setColors_: ThemeContext["setColors"] =
-			useCallback((colorScheme, overrideIsDark) => {
-				setColors({
-					schemes: {
-						...(overrideIsDark ?? isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors),
-						...colorScheme,
-					},
-					overrideIsDark,
+		setSourceColor: ThemeContext["setSourceColor"] =
+			useCallback(color => {
+				setState({
+					sourceColor: color,
+					withAndroidDynamicColor: null,
 				})
 			}, [
-				isDarkSelf,
-				setColors, // This dep is not needed if i stop the continous vars
+				setState, // becaues the continous vars
 			])
 
 	const
 		isDark =
-			colors.overrideIsDark ?? isDarkSelf
+			state.withAndroidDynamicColor === "dark" ||
+			isDarkColorScheme,
+
+		colors =
+			state.withAndroidDynamicColor
+				? androidDynamicColor
+				: materialColor.colorScheme
 
 	return (
 		<ThemeContext.Provider
 			value={{
-				setThemeByColor,
-				setColors: setColors_,
+				sourceColor: state.sourceColor,
+				usingAndroidDynamicColor: !!state.withAndroidDynamicColor,
+				colorScheme: colors,
+				setAndroidDynamicColor,
+				setSourceColor,
 			}}
 		>
 			<PaperProvider
 				theme={{
-					colors: colors.schemes,
+					colors: {
+						...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
+						...colors,
+					},
 				}}
 			>
 				<ReactNavigationThemeProvider
@@ -140,6 +165,9 @@ export function ThemeProvider({
 }
 
 const
+	initialSourceColor =
+		"#ffde3f",
+
 	adaptedNavigationTheme =
 		adaptNavigationTheme({
 			reactNavigationLight: NavigationDefaultTheme,

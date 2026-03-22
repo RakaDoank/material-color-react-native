@@ -20,9 +20,7 @@ import * as ExpoImagePicker from "expo-image-picker"
 import * as ExpoStatusBar from "expo-status-bar"
 
 import {
-	AndroidDynamicColor,
 	MaterialColor,
-	type ColorScheme,
 } from "material-color-react-native"
 
 import {
@@ -53,9 +51,6 @@ import StaticImage2 from "./_wallpaper.png"
 export function Page() {
 
 	const
-		colorSchemePrintViewRef =
-			useRef<ColorSchemePrintViewRef>(null),
-
 		buttonStaticImage1Ref =
 			useRef<ButtonLoadingImperativeRef>(null),
 
@@ -79,9 +74,7 @@ export function Page() {
 
 		getAndroidDynamicColor =
 			() => {
-				const colorScheme = AndroidDynamicColor.dynamic()
-				colorSchemePrintViewRef.current?.setText("Android Dynamic Color", colorScheme)
-				themeContext.setColors(colorScheme)
+				themeContext.setAndroidDynamicColor("dynamic")
 				ExpoStatusBar.setStatusBarStyle(
 					Appearance.getColorScheme() === "dark" ? "light" : "dark",
 				)
@@ -89,17 +82,13 @@ export function Page() {
 
 		getAndroidDynamicDarkColor =
 			() => {
-				const colorScheme = AndroidDynamicColor.dark()
-				colorSchemePrintViewRef.current?.setText("Android Dynamic Dark", colorScheme)
-				themeContext.setColors(colorScheme, true)
+				themeContext.setAndroidDynamicColor("dark")
 				ExpoStatusBar.setStatusBarStyle("light")
 			},
 
 		getAndroidDynamicLightColor =
 			() => {
-				const colorScheme = AndroidDynamicColor.light()
-				colorSchemePrintViewRef.current?.setText("Android Dynamic Light", colorScheme)
-				themeContext.setColors(colorScheme, false)
+				themeContext.setAndroidDynamicColor("light")
 				ExpoStatusBar.setStatusBarStyle("dark")
 			},
 
@@ -123,8 +112,7 @@ export function Page() {
 				)
 					.then(res => {
 						if(res) {
-							colorSchemePrintViewRef.current?.setText(res.sourceColor, res.colorScheme)
-							themeContext.setColors(res.colorScheme)
+							themeContext.setSourceColor(res.sourceColor)
 						}
 					})
 					.catch(() => {
@@ -140,6 +128,8 @@ export function Page() {
 				buttonLocalImageRef.current?.setLoading(true)
 
 				try {
+					// You can use other photo/file picker module here
+
 					const image = await ExpoImagePicker.launchImageLibraryAsync({
 						mediaTypes: "images",
 					})
@@ -165,8 +155,7 @@ export function Page() {
 						throw new Error()
 					}
 
-					colorSchemePrintViewRef.current?.setText(materialColor.sourceColor, materialColor.colorScheme)
-					themeContext.setColors(materialColor.colorScheme)
+					themeContext.setSourceColor(materialColor.sourceColor)
 				} catch {
 					// NOOP
 				} finally {
@@ -180,7 +169,6 @@ export function Page() {
 
 				try {
 					const materialColor = await MaterialColor.fromSourceImageUri(
-
 						// Image thumbnail of a YouTube video
 						// See the video at https://www.youtube.com/watch?v=XGxIE1hr0w4
 						"https://i3.ytimg.com/vi/XGxIE1hr0w4/maxresdefault.jpg",
@@ -192,15 +180,13 @@ export function Page() {
 						{
 							// maxWidthOrHeight: 1920,
 						},
-
 					)
 
 					if(!materialColor) {
 						throw new Error()
 					}
 
-					colorSchemePrintViewRef.current?.setText(materialColor.sourceColor, materialColor.colorScheme)
-					themeContext.setColors(materialColor.colorScheme)
+					themeContext.setSourceColor(materialColor.sourceColor)
 				} catch {
 					// NOOP
 				} finally {
@@ -215,9 +201,7 @@ export function Page() {
 
 		onSubmitModalInputColor: ModalInputColorProps["onSubmit"] =
 			hexColor => {
-				const colorScheme = MaterialColor.fromSourceColor(hexColor).colorScheme
-				colorSchemePrintViewRef.current?.setText(hexColor, colorScheme)
-				themeContext.setColors(colorScheme)
+				themeContext.setSourceColor(hexColor)
 			},
 
 		rowMode =
@@ -313,7 +297,6 @@ export function Page() {
 			</ScrollView>
 
 			<ColorSchemePrintView
-				ref={ colorSchemePrintViewRef }
 				style={ [
 					rowMode
 						? styleSheet.colorSchemePrintViewMaxWidth
@@ -352,46 +335,29 @@ const
 		})
 
 interface ColorSchemePrintViewProps extends ScrollViewProps {
-	ref?: React.Ref<ColorSchemePrintViewRef>,
-}
-
-interface ColorSchemePrintViewRef {
-	setText: (
-		colorSource: string,
-		colorScheme: ColorScheme,
-	) => void,
 }
 
 function ColorSchemePrintView({
-	ref,
 	contentContainerStyle,
 	style,
 	...props
 }: ColorSchemePrintViewProps) {
 
 	const
-		[text, setTextState] =
-			useState(""),
+		themeContext =
+			useContext(ThemeContext),
 
 		theme =
 			useTheme()
 
-	useImperativeHandle(ref, () => {
-		return {
-			setText(colorSource, colorScheme) {
-				let nextText = ""
+	let nextText = ""
 
-				nextText += "{"
-				nextText += `\n "<colorSource>": "${colorSource}"`
-				Object.entries(colorScheme).forEach(([key, val]) => {
-					nextText += `\n  "${key}": "${val}",`
-				})
-				nextText += "\n}"
-
-				setTextState(nextText)
-			},
-		}
-	}, [])
+	nextText += "{"
+	nextText += `\n "<colorSource>": "${themeContext.usingAndroidDynamicColor ? "Android Dynamic Color" : themeContext.sourceColor}"`
+	Object.entries(themeContext.colorScheme).forEach(([key, val]) => {
+		nextText += `\n  "${key}": "${val}",`
+	})
+	nextText += "\n}"
 
 	return (
 		<ScrollView
@@ -414,7 +380,7 @@ function ColorSchemePrintView({
 			<Text
 				variant="bodyMedium"
 			>
-				{ text }
+				{ nextText }
 			</Text>
 		</ScrollView>
 	)
