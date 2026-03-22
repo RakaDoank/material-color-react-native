@@ -23,8 +23,8 @@ export function sourceColorFromImageUri(uri: string, options?: SourceColorFromIm
 				uri,
 				signalID,
 				typeof options?.maxWidthOrHeight === "number"
-					? options?.maxWidthOrHeight > 0 ? options.maxWidthOrHeight : null
-					: null,
+					? Math.max(options.maxWidthOrHeight, 0)
+					: 0,
 			)
 		},
 		() => {
