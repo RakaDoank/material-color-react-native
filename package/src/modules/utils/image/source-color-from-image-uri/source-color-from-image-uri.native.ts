@@ -9,6 +9,8 @@ import {
 } from "../_source-color-from-image-uri-controller"
 
 /**
+ * Get source color from an image.
+ * 
  * @param uri Image uri file
  * @returns Argb color
  */

@@ -1,5 +1,4 @@
 import {
-	Appearance,
 	Image,
 	Platform,
 	type ImageSourcePropType,
@@ -10,7 +9,6 @@ import {
 	Hct,
 	Variant,
 	argbFromHex,
-	hexFromArgb,
 } from "@material/material-color-utilities"
 
 import {
@@ -25,21 +23,31 @@ import type {
 	MaterialColorInterface,
 } from "./MaterialColorInterface"
 
+import type {
+	MaterialColorOptions,
+} from "./MaterialColorOptions"
+
 /**
  * Build Material color scheme to map dynamic color, use as fallback colors, or implement a branded theme
  * 
  * All the science have been done by `@material/material-color-utilities`, except a module of how to get source color from image's bitmap for non Web platform.
  * 
- * There are three ways to build material color with this class. You can choose one of these ways
- * 1. Instantiate this class with Argb integer color in the constructor argument
- * 2. Quickly build it from an hex color with the `MaterialColor.fromSourceColor` static method
- * 3. You can also use the `MaterialColor.fromSourceImage` or `MaterialColor.fromSourceImageUri` static method to get material color
+ * There are ways to build material color with this class. You can choose one of these ways
+ * - Instantiate this class with Hex color code in the constructor argument
+ * - Quickly build it from an hex color with the `MaterialColor.fromSourceColorHexInt` static method
+ * - You can also use the `MaterialColor.fromSourceImage` or `MaterialColor.fromSourceImageUri` static method to get material color
  */
 export class MaterialColor implements MaterialColorInterface {
 
-	readonly sourceColor: string
+	readonly sourceColor: MaterialColorInterface["sourceColor"]
 
 	readonly colorScheme: MaterialColorInterface["colorScheme"]
+
+	readonly theme: MaterialColorInterface["theme"]
+
+	readonly contrastLevel: number
+
+	readonly variant: MaterialColorInterface["variant"]
 
 	readonly dynamicScheme: DynamicScheme
 
@@ -54,33 +62,11 @@ export class MaterialColor implements MaterialColorInterface {
 	} as const
 
 	/**
-	 * Returns either is dark or light theme.
-	 * 
-	 * If you are using Expo, make sure you have set `userInterfaceStyle` to `automatic` to your Expo app configuration (the `app.json` or `app.config.ts`)
-	 */
-	static get isDark() {
-		return Appearance.getColorScheme() === "dark"
-	}
-
-	static fromSourceColor(
-		hex: string,
-		options?: Omit<Partial<ConstructorParameters<typeof DynamicScheme>[0]>, "sourceColorHct">,
-	) {
-		return new MaterialColor({
-			...options,
-			contrastLevel: options?.contrastLevel ?? MaterialColor.ContrastLevelPresets.DEFAULT,
-			isDark: MaterialColor.isDark,
-			sourceColorHct: Hct.fromInt(argbFromHex(hex)),
-			variant: options?.variant ?? MaterialColor.Variant.TONAL_SPOT,
-		})
-	}
-
-	/**
 	 * Get the source color from an image and return `MaterialColor` in promise.
 	 * 
 	 * If you wish to get the source color only from an image, you can use `ImageUtils.sourceColorFromImageUri()`, or `ImageUtils.sourceHexColorFromImageUri()`
 	 * 
-	 * If you already have the URI, for instance you get an image from a file/document picker, or an online image, you can use `MaterialColor.fromSourceImageUri` instead
+	 * If you already have the URI, for instance you get an image from a file/document picker, or an online image, you can use `MaterialColor.fromSourceImageUri`
 	 * 
 	 * @example
 	 * ```jsx
@@ -121,13 +107,24 @@ export class MaterialColor implements MaterialColorInterface {
 	 */
 	static fromSourceImage(
 		source: ImageSourcePropType,
-		materialOptions?: Parameters<typeof MaterialColor.fromSourceColor>[1],
-		imageUriOptions?: ImageUtils.SourceColorFromImageUriOptions,
-	) {
+		options?: MaterialColorOptions,
+		imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
+	): Promise<MaterialColor | null> {
 		const assetSource = Platform.OS === "web"
-			? { uri: typeof source === "object" && "uri" in source ? source.uri! : "" }
+			? {
+				uri: typeof source === "object" &&
+					"uri" in source &&
+					typeof source.uri === "string"
+					? source.uri
+					: "",
+			}
 			: Image.resolveAssetSource(source)
-		return MaterialColor.fromSourceImageUri(assetSource.uri, materialOptions, imageUriOptions)
+
+		if(assetSource.uri) {
+			return MaterialColor.fromSourceImageUri(assetSource.uri, options, imageOptions)
+		}
+
+		return Promise.resolve(null)
 	}
 
 	/**
@@ -138,18 +135,18 @@ export class MaterialColor implements MaterialColorInterface {
 	 */
 	static fromSourceImageUri(
 		uri: string,
-		materialOptions?: Parameters<typeof MaterialColor.fromSourceColor>[1],
-		imageUriOptions?: ImageUtils.SourceColorFromImageUriOptions,
+		options?: MaterialColorOptions,
+		imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
 	): Promise<MaterialColor | null> {
 		return new Promise(resolve => {
 			const { sourceHexColorFromImageUri } =
 				require("../utils/image/source-hex-color-from-image-uri/source-hex-color-from-image-uri") as
 					typeof import("../utils/image/source-hex-color-from-image-uri/source-hex-color-from-image-uri.native")
 
-			sourceHexColorFromImageUri(uri, imageUriOptions).then(color => {
+			sourceHexColorFromImageUri(uri, imageOptions).then(color => {
 				if(color) {
 					resolve(
-						MaterialColor.fromSourceColor(color, materialOptions),
+						new MaterialColor(color, options),
 					)
 				} else {
 					resolve(null)
@@ -158,12 +155,41 @@ export class MaterialColor implements MaterialColorInterface {
 		})
 	}
 
-	constructor(
-		args: ConstructorParameters<typeof DynamicScheme>[0],
+	/**
+	 * Build Material Color from a hex color code in decimal or hexadecimal,
+	 * e.g. `0xFFFFFF`, `16777215` (white in decimal)
+	 */
+	static fromSourceColorHexInt(
+		hexInt: number,
+		options?: MaterialColorOptions,
 	) {
-		this.dynamicScheme = new DynamicScheme(args)
+		return new MaterialColor(
+			hexInt.toString(16).padStart(6, "0"),
+			options,
+		)
+	}
+
+	constructor(
+		/**
+		 * Seed hex color for building a Material color scheme to map dynamic color
+		 */
+		sourceColor: string,
+		options?: MaterialColorOptions,
+	) {
+		this.sourceColor = sourceColor
+		this.contrastLevel = options?.contrastLevel ?? MaterialColor.ContrastLevelPresets.DEFAULT
+		this.theme = options?.isDark ? "dark" : "light"
+		this.variant = options?.variant ?? MaterialColor.Variant.TONAL_SPOT
+
+		this.dynamicScheme = new DynamicScheme({
+			...options,
+			contrastLevel: this.contrastLevel,
+			isDark: this.theme == "dark",
+			sourceColorHct: Hct.fromInt(argbFromHex(sourceColor)),
+			variant: this.variant,
+		})
+
 		this.colorScheme = new ColorSchemeDelegate(this.dynamicScheme)
-		this.sourceColor = hexFromArgb(args.sourceColorHct.toInt())
 	}
 
 }

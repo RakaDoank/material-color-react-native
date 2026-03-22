@@ -22,7 +22,7 @@ export function sourceColorFromImageUriController<
 				options?.signal
 
 		return new Promise<ResultType>((resolve, reject) => {
-			const timeoutID = timeout
+			let timeoutID = timeout
 				? setTimeout(() => {
 					timeoutController?.abort()
 				}, timeout)
@@ -37,6 +37,7 @@ export function sourceColorFromImageUriController<
 			function onAbortFromOptionSignal() {
 				if(timeoutID) {
 					clearTimeout(timeoutID)
+					timeoutID = null
 				}
 				fnCanceller()
 				timeoutController?.signal.removeEventListener("abort", onAbortFromTimeout)
