@@ -1,4 +1,6 @@
 catalog:
+  react: 19.2.0
+  react-dom: 19.2.0
   react-native-builder-bob: 0.40.18
 
 engineStrict: true
@@ -6,6 +8,7 @@ engineStrict: true
 nodeLinker: hoisted
 
 packages:
+  - 'docusaurus'
   - 'example'
   - 'package'
   - 'package-builder'
