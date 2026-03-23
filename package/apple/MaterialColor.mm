@@ -28,7 +28,10 @@
 {
   [self sourceColorFromImageUriBaseHandler:uri signalID:signalID maxWidthOrHeight:maxWidthOrHeight didResult:^(NSNumber *color){
     uint32_t colorInt = [color intValue];
+
     std::string hexColor = material_color_utilities::HexFromArgb(colorInt).substr(2);
+    // .substr(2) is to remove the leading "ff"
+    // because the ARGB int above is a fully opaque
 
     if(hexColor[0] != '#') {
       hexColor = "#" + hexColor;
