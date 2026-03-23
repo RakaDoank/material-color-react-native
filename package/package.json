@@ -1,6 +1,6 @@
 {
 	"name": "material-color-react-native",
-	"version": "1.0.0-beta.5",
+	"version": "1.0.0-beta.6",
 	"description": "Get Material color from React Native app",
 	"license": "MIT",
 	"author": "RakaDoank <rakaaudira@gmail.com> (https://github.com/RakaDoank)",
@@ -23,11 +23,21 @@
 				"default": "./lib/commonjs/index.js"
 			}
 		},
+		"./react-native-paper": {
+			"import": {
+				"types": "./lib/typescript/module/subpaths/react-native-paper/index.d.ts",
+				"default": "./lib/module/subpaths/react-native-paper/index.js"
+			},
+			"require": {
+				"types": "./lib/typescript/commonjs/subpaths/react-native-paper/index.d.ts",
+				"default": "./lib/commonjs/subpaths/react-native-paper/index.js"
+			}
+		},
 		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
 		"@material/material-color-utilities": "^0.4.0",
-		"react-dom": ">=17",
+		"color-blend": "^4",
 		"react-native": ">=0.79"
 	},
 	"codegenConfig": {

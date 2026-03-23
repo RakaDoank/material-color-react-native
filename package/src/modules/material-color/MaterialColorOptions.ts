@@ -2,7 +2,15 @@ import type {
 	DynamicScheme,
 } from "@material/material-color-utilities"
 
-type Options = Omit<Partial<ConstructorParameters<typeof DynamicScheme>[0]>, "sourceColorHct">
+import type {
+	MaterialColorTonalPalettes,
+} from "./MaterialColorTonalPalettes"
+
+type Options = Omit<
+	Partial<ConstructorParameters<typeof DynamicScheme>[0]>,
+	| keyof MaterialColorTonalPalettes
+	| "sourceColorHct"
+>
 
 /**
  * Specified material color options like Variant, Contrast Level, etc.
@@ -19,5 +27,5 @@ type Options = Omit<Partial<ConstructorParameters<typeof DynamicScheme>[0]>, "so
  * }
  * ```
  */
-export interface MaterialColorOptions extends Options {
+export interface MaterialColorOptions extends Options, Partial<Record<keyof MaterialColorTonalPalettes, string>> {
 }

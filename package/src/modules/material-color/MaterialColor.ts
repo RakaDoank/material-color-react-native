@@ -7,6 +7,7 @@ import {
 import {
 	DynamicScheme,
 	Hct,
+	TonalPalette,
 	Variant,
 	argbFromHex,
 } from "@material/material-color-utilities"
@@ -14,6 +15,10 @@ import {
 import {
 	ColorSchemeDelegate,
 } from "../_ColorSchemeDelegate"
+
+import {
+	TonalPalettesDelegate,
+} from "../_TonalPalettesDelegate"
 
 import type {
 	ImageUtils,
@@ -38,18 +43,6 @@ import type {
  * - You can also use the `MaterialColor.fromSourceImage` or `MaterialColor.fromSourceImageUri` static method to get material color
  */
 export class MaterialColor implements MaterialColorInterface {
-
-	readonly sourceColor: MaterialColorInterface["sourceColor"]
-
-	readonly colorScheme: MaterialColorInterface["colorScheme"]
-
-	readonly theme: MaterialColorInterface["theme"]
-
-	readonly contrastLevel: number
-
-	readonly variant: MaterialColorInterface["variant"]
-
-	readonly dynamicScheme: DynamicScheme
 
 	static Variant = Variant
 
@@ -128,6 +121,9 @@ export class MaterialColor implements MaterialColorInterface {
 	}
 
 	/**
+	 * Get the source color from an image uri and return `MaterialColor` in promise.
+	 * 
+	 * Similar as the `MaterialColor.fromSourceImage`, but you can provide the uri only, whether it's an online image, or local file uri that you get by importing a file, or file/gallery picker
 	 * @platform Android
 	 * @platform iOS
 	 * @platform macOS
@@ -169,6 +165,54 @@ export class MaterialColor implements MaterialColorInterface {
 		)
 	}
 
+	readonly sourceColor: MaterialColorInterface["sourceColor"]
+
+	readonly colorScheme: MaterialColorInterface["colorScheme"]
+
+	readonly theme: MaterialColorInterface["theme"]
+
+	readonly contrastLevel: number
+
+	readonly platform: MaterialColorInterface["platform"]
+
+	readonly specVersion: MaterialColorInterface["specVersion"]
+
+	readonly variant: MaterialColorInterface["variant"]
+
+	// +++++ Tonal Palettes +++++
+	readonly primaryPalette: MaterialColorInterface["primaryPalette"]
+
+	readonly secondaryPalette: MaterialColorInterface["secondaryPalette"]
+
+	readonly tertiaryPalette: MaterialColorInterface["tertiaryPalette"]
+
+	readonly errorPalette: MaterialColorInterface["errorPalette"]
+
+	readonly neutralPalette: MaterialColorInterface["neutralPalette"]
+
+	readonly neutralVariantPalette: MaterialColorInterface["neutralVariantPalette"]
+	// ----- Tonal Palettes -----
+
+	/**
+	 * You can get the original `DynamicScheme` result from `@material/material-color-utilitites`
+	 */
+	dynamicScheme(): DynamicScheme {
+		return new DynamicScheme({
+			contrastLevel: this.contrastLevel,
+			isDark: this.theme == "dark",
+			sourceColorHct: Hct.fromInt(argbFromHex(this.sourceColor)),
+			variant: this.variant,
+			primaryPalette: tonalPaletteFromHex(this.primaryPalette.keyColor),
+			secondaryPalette: tonalPaletteFromHex(this.secondaryPalette.keyColor),
+			tertiaryPalette: tonalPaletteFromHex(this.tertiaryPalette.keyColor),
+			errorPalette: tonalPaletteFromHex(this.errorPalette.keyColor),
+			neutralPalette: tonalPaletteFromHex(this.neutralPalette.keyColor),
+			neutralVariantPalette: tonalPaletteFromHex(this.neutralVariantPalette.keyColor),
+			platform: this.platform,
+			specVersion: this.specVersion,
+		})
+	}
+
 	constructor(
 		/**
 		 * Seed hex color for building a Material color scheme to map dynamic color
@@ -176,20 +220,56 @@ export class MaterialColor implements MaterialColorInterface {
 		sourceColor: string,
 		options?: MaterialColorOptions,
 	) {
+
 		this.sourceColor = sourceColor
 		this.contrastLevel = options?.contrastLevel ?? MaterialColor.ContrastLevelPresets.DEFAULT
 		this.theme = options?.isDark ? "dark" : "light"
 		this.variant = options?.variant ?? MaterialColor.Variant.TONAL_SPOT
 
-		this.dynamicScheme = new DynamicScheme({
+		const dynamicScheme = new DynamicScheme({
 			...options,
 			contrastLevel: this.contrastLevel,
 			isDark: this.theme == "dark",
 			sourceColorHct: Hct.fromInt(argbFromHex(sourceColor)),
 			variant: this.variant,
+			primaryPalette: tonalPaletteFromHex(options?.primaryPalette),
+			secondaryPalette: tonalPaletteFromHex(options?.secondaryPalette),
+			tertiaryPalette: tonalPaletteFromHex(options?.tertiaryPalette),
+			errorPalette: tonalPaletteFromHex(options?.errorPalette),
+			neutralPalette: tonalPaletteFromHex(options?.neutralPalette),
+			neutralVariantPalette: tonalPaletteFromHex(options?.neutralVariantPalette),
 		})
 
-		this.colorScheme = new ColorSchemeDelegate(this.dynamicScheme)
+		this.colorScheme = new ColorSchemeDelegate(dynamicScheme)
+
+		const
+			{
+				primaryPalette,
+				secondaryPalette,
+				tertiaryPalette,
+				errorPalette,
+				neutralPalette,
+				neutralVariantPalette,
+			} =
+				TonalPalettesDelegate.fromDynamicScheme(dynamicScheme)
+
+		this.primaryPalette = primaryPalette
+		this.secondaryPalette = secondaryPalette
+		this.tertiaryPalette = tertiaryPalette
+		this.errorPalette = errorPalette
+		this.neutralPalette = neutralPalette
+		this.neutralVariantPalette = neutralVariantPalette
+
+		this.platform = options?.platform ?? dynamicScheme.platform
+		this.specVersion = options?.specVersion ?? dynamicScheme.specVersion
+
 	}
 
+}
+
+function tonalPaletteFromHex(hex?: string) {
+	if(!hex) {
+		return undefined
+	}
+	return TonalPalette.fromInt(argbFromHex(hex))
 }

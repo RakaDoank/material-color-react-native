@@ -38,8 +38,6 @@ import type {
  * 	useMaterialColorFromImage,
  * } from "react-native-material-color"
  * 
- * import YourImage from "./your-image.png"
- * 
  * function YourReactComponent() {
  * 	const
  * 		materialColor =

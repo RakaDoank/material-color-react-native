@@ -19,6 +19,10 @@ import {
 } from "material-color-react-native"
 
 import {
+	PaperColorAdapter,
+} from "material-color-react-native/react-native-paper"
+
+import {
 	MD3DarkTheme,
 	MD3LightTheme,
 	PaperProvider,
@@ -43,29 +47,6 @@ export function ThemeProvider({
 
 		isDarkColorScheme =
 			colorScheme === "dark",
-
-		// [colors, setColors] =
-		// 	// You might want to save your color preferences in a persisted storage,
-		// 	// e.g. `react-native-mmkv`, `react-native-async-storage`, `@op-engineering/op-sqlite`, etc.
-		// 	useState<{
-		// 		schemes: typeof MD3LightTheme["colors"],
-		// 		overrideIsDark?: boolean,
-		// 	}>(() => {
-		// 		if(AndroidDynamicColor.isSupported()) {
-		// 			return {
-		// 				schemes: {
-		// 					...(isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors),
-		// 					...AndroidDynamicColor.dynamic(),
-		// 				},
-		// 				overrideIsDark: isDarkSelf,
-		// 			}
-		// 		}
-
-		// 		return {
-		// 			schemes: isDarkSelf ? MD3DarkTheme.colors : MD3LightTheme.colors,
-		// 			overrideIsDark: isDarkSelf,
-		// 		}
-		// 	}),
 
 		[state, setState] =
 			useState<{
@@ -133,10 +114,13 @@ export function ThemeProvider({
 		>
 			<PaperProvider
 				theme={{
-					colors: {
-						...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
-						...colors,
-					},
+					colors: state.withAndroidDynamicColor
+						? {
+							// I'll provide the `PaperColorAdapter.fromAndroidDynamicColor` later
+							...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
+							...colors,
+						}
+						: PaperColorAdapter.fromMaterialColor(materialColor),
 				}}
 			>
 				<ReactNavigationThemeProvider

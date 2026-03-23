@@ -6,7 +6,8 @@
 	"compilerOptions": {
 		"paths": {
 			"@/*": ["./src/*/index"],
-			"material-color-react-native": ["../package/src/index"]
+			"material-color-react-native": ["../package/src/index"],
+			"material-color-react-native/react-native-paper": ["../package/src/subpaths/react-native-paper/index"]
 		},
 		"types": [
 			"react-native-web"

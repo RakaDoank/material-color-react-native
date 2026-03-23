@@ -37,6 +37,7 @@ const config = {
 		extraNodeModules: {
 			...(defaultConfig.resolver?.extraNodeModules ?? {}),
 			"react-native-material-color": node_path.join(workspaceRoot, "package", "src"),
+			"react-native-material-color/react-native-paper": node_path.join(workspaceRoot, "package", "src", "subpaths", "react-native-paper"),
 		},
 	},
 
