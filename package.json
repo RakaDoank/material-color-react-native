@@ -5,6 +5,7 @@
 		"code-check": "npm run type-check && npm run lint",
 		"lint": "eslint .",
 		"package-builder": "package-builder",
+		"pnpm-clean-install": "node ./scripts/pnpm-clean-install.mjs",
 		"type-check": "tsc --build"
 	},
 	"devDependencies": {
@@ -12,6 +13,7 @@
 		"@react-native/eslint-config": "0.83.2",
 		"@stylistic/eslint-plugin": "5.10.0",
 		"@types/node": "^24",
+		"@types/color": "4.2.1",
 		"@types/react": "19.2.14",
 		"@types/react-dom": "19.2.3",
 		"@types/react-native-web": "0.19.2",
