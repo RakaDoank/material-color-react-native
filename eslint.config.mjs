@@ -26,6 +26,7 @@ export default EslintConfig.defineConfig([
 	EslintConfig.globalIgnores([
 		"**/dist/",
 		"**/node_modules/",
+		"**/.docusaurus/",
 		"**/.expo/",
 		"./package/lib/",
 		"**/expo-env.d.ts",
@@ -290,6 +291,7 @@ export default EslintConfig.defineConfig([
 				EslintImportResolverTypeScript.createTypeScriptImportResolver({
 					project: "./tsconfig.json",
 					// override default https://github.com/import-js/eslint-import-resolver-typescript?tab=readme-ov-file#extensions
+					alwaysTryTypes: true,
 					extensions: [
 						".ts",
 						".tsx",
@@ -306,6 +308,25 @@ export default EslintConfig.defineConfig([
 						".web.ts", ".web.tsx",
 					],
 				}),
+			],
+		},
+	},
+
+	{
+		files: [
+			"./docusaurus/src/**/*.{ts,tsx}",
+		],
+		rules: {
+			"import-x/no-named-as-default": "off",
+			"import-x/no-unresolved": [
+				"error",
+				{
+					ignore: [
+						"^@docusaurus",
+						"^@site",
+						"^@theme",
+					],
+				},
 			],
 		},
 	},
@@ -354,6 +375,7 @@ export default EslintConfig.defineConfig([
 
 	{
 		files: [
+			"./docusaurus/*.{js,mjs,ts}",
 			"./example/*.config.js",
 			"./scripts/**/*.{js,mjs}",
 			"./package-builder/**/*.{js,mjs}",
