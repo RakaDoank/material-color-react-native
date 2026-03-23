@@ -20,6 +20,9 @@ yarn-error.log
 # Turborepo
 .turbo/
 
+# Docusaurus
+/docusaurus/.docusaurus/
+
 # Expo
 .expo/
 expo-env.d.ts
