@@ -163,9 +163,6 @@ importers:
       '@material/material-color-utilities':
         specifier: ^0.4.0
         version: 0.4.0
-      color-blend:
-        specifier: ^4
-        version: 4.0.0
       react-native:
         specifier: '>=0.79'
         version: 0.83.2(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
@@ -3415,10 +3412,6 @@ packages:
 
   collapse-white-space@2.1.0:
     resolution: {integrity: sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==}
-
-  color-blend@4.0.0:
-    resolution: {integrity: sha512-fYODTHhI/NG+B5GnzvuL3kiFrK/UnkUezWFTgEPBTY5V+kpyfAn95Vn9sJeeCX6omrCOdxnqCL3CvH+6sXtIbw==}
-    engines: {node: '>=10.0.0'}
 
   color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -12818,8 +12811,6 @@ snapshots:
   clsx@2.1.1: {}
 
   collapse-white-space@2.1.0: {}
-
-  color-blend@4.0.0: {}
 
   color-convert@1.9.3:
     dependencies:
