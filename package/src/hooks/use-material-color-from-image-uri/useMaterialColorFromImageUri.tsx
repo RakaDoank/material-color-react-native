@@ -30,6 +30,7 @@ import type {
  * 
  * You may don't need this if you wish to get the source color only from an image. Then, you can use `ImageUtils.sourceColorFromImageUri()`, or `ImageUtils.sourceHexColorFromImageUri()`
  *
+ * You can pass `undefined`, or `null`, or empty string to the source image uri (first argument) to get material color later.
  * 
  * @example
  * ```jsx
@@ -66,7 +67,7 @@ import type {
  * @platform Web
  */
 export function useMaterialColorFromImageUri(
-	sourceImage: string,
+	sourceImage?: string | null,
 	options?: UseMaterialColorFromImageUriOptions,
 	imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
 ): UseMaterialColorFromImageUriInstance {
@@ -75,8 +76,17 @@ export function useMaterialColorFromImageUri(
 		appColorScheme =
 			useColorScheme(),
 
-		[sourceColor, setSourceColor] =
-			useState<MaterialColor["sourceColor"] | null>(null)
+		[state, setState] =
+			useState<
+				& Omit<UseMaterialColorFromImageUriInstance, "data">
+				& {
+					sourceColor: string | undefined,
+				}
+			>({
+				sourceColor: undefined,
+				isLoading: !!sourceImage,
+				error: undefined,
+			})
 
 	useEffect(() => {
 		const
@@ -101,7 +111,19 @@ export function useMaterialColorFromImageUri(
 						signal: mainController.signal,
 					},
 				)
-				.then(setSourceColor)
+				.then(sourceColor => {
+					setState({
+						sourceColor: sourceColor || undefined,
+						isLoading: false,
+					})
+				})
+				.catch(error => {
+					setState(currState => ({
+						sourceColor: currState.sourceColor,
+						isLoading: false,
+						error: error instanceof Error ? error : undefined,
+					}))
+				})
 		}
 
 		return () => {
@@ -115,16 +137,18 @@ export function useMaterialColorFromImageUri(
 		sourceImage,
 	])
 
-	if(!sourceColor) {
-		return null
+	return {
+		data: state.sourceColor && sourceImage
+			? new MaterialColor(
+				state.sourceColor,
+				{
+					...options,
+					isDark: options?.isDark ?? appColorScheme == "dark",
+				},
+			)
+			: undefined,
+		isLoading: state.isLoading,
+		error: state.error,
 	}
-
-	return new MaterialColor(
-		sourceColor,
-		{
-			...options,
-			isDark: options?.isDark ?? appColorScheme == "dark",
-		},
-	)
 
 }

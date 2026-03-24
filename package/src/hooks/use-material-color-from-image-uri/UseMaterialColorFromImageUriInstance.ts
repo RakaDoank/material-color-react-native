@@ -2,6 +2,9 @@ import type {
 	UseMaterialColorInstance,
 } from "../use-material-color"
 
-export type UseMaterialColorFromImageUriInstance =
-	| UseMaterialColorInstance
-	| null
+export interface UseMaterialColorFromImageUriInstance {
+	data: UseMaterialColorInstance | undefined,
+	isLoading: boolean,
+	error?: Error | undefined,
+}
+

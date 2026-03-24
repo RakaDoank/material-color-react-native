@@ -1,10 +1,10 @@
 {
 	"name": "material-color-react-native",
-	"version": "1.0.0-beta.7",
-	"description": "Get Material color from React Native app",
+	"version": "1.0.0-beta.8",
+	"description": "Bring material color utilities to React Native app",
 	"license": "MIT",
 	"author": "RakaDoank <rakaaudira@gmail.com> (https://github.com/RakaDoank)",
-	"homepage": "https://github.com/RakaDoank/material-color-react-native",
+	"homepage": "https://rakadoank.github.io/material-color-react-native",
 	"repository": "https://github.com/RakaDoank/material-color-react-native",
 	"files": [
 		"android",
