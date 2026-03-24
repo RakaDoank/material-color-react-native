@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/utils/MathUtils.kt
-package com.audira.lib.reactnativematerialcolor.utils
+package com.audira.lib.materialcolorreactnative.utils
 
 import kotlin.math.abs
 

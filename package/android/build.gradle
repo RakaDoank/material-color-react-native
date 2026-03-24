@@ -33,7 +33,7 @@ apply plugin: "kotlin-android"
 apply plugin: "com.facebook.react"
 
 android {
-  namespace "com.audira.lib.reactnativematerialcolor"
+  namespace "com.audira.lib.materialcolorreactnative"
 
   compileSdkVersion getExtOrDefault("compileSdkVersion")
 

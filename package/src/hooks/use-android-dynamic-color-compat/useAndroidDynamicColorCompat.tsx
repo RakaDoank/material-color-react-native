@@ -43,18 +43,29 @@ export function useAndroidDynamicColorCompat(
 					? false
 					: undefined
 
-	if(AndroidDynamicColor.isSupported()) {
+	if(AndroidDynamicColor.isAvailable()) {
 		return new AndroidDynamicColor({
-			dark: darkOpt,
+			dark: options?.isDark,
 		})
 	}
 
-	return new MaterialColor(
+	const materialColor = new MaterialColor(
 		sourceColorFallback,
 		{
 			...options,
 			isDark: darkOpt,
 		},
-	).colorScheme
+	)
+
+	return {
+		colorScheme: materialColor.colorScheme,
+		primaryPalette: materialColor.primaryPalette,
+		secondaryPalette: materialColor.secondaryPalette,
+		tertiaryPalette: materialColor.tertiaryPalette,
+		errorPalette: materialColor.errorPalette,
+		neutralPalette: materialColor.neutralPalette,
+		neutralVariantPalette: materialColor.neutralVariantPalette,
+		theme: materialColor.theme,
+	}
 
 }

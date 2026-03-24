@@ -1,8 +1,8 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/hct/Hct.kt
-package com.audira.lib.reactnativematerialcolor.hct
+package com.audira.lib.materialcolorreactnative.hct
 
 import kotlin.math.roundToInt
-import com.audira.lib.reactnativematerialcolor.utils.ColorUtils
+import com.audira.lib.materialcolorreactnative.utils.ColorUtils
 
 /**
  * A color system built using CAM16 hue and chroma, and L* from L*a*b*.

@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/quantize/PointProvider.kt
-package com.audira.lib.reactnativematerialcolor.quantize
+package com.audira.lib.materialcolorreactnative.quantize
 
 /** An interface to allow use of different color spaces by quantizers. */
 interface PointProvider {

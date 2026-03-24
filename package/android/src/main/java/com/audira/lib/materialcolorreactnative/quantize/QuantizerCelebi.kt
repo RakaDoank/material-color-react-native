@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/quantize/QuantizerLab.kt
-package com.audira.lib.reactnativematerialcolor.quantize
+package com.audira.lib.materialcolorreactnative.quantize
 
 /**
  * An image quantizer that improves on the quality of a standard K-Means algorithm by setting the

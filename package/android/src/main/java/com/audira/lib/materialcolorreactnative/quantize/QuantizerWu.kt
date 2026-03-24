@@ -1,7 +1,7 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/quantize/QuantizerWu.kt
-package com.audira.lib.reactnativematerialcolor.quantize
+package com.audira.lib.materialcolorreactnative.quantize
 
-import com.audira.lib.reactnativematerialcolor.utils.ColorUtils
+import com.audira.lib.materialcolorreactnative.utils.ColorUtils
 import java.util.ArrayList
 import java.util.LinkedHashMap
 

@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/hct/ViewingConditions.kt
-package com.audira.lib.reactnativematerialcolor.hct
+package com.audira.lib.materialcolorreactnative.hct
 
 import kotlin.math.PI
 import kotlin.math.cbrt
@@ -7,8 +7,8 @@ import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.pow
 import kotlin.math.sqrt
-import com.audira.lib.reactnativematerialcolor.utils.ColorUtils
-import com.audira.lib.reactnativematerialcolor.utils.MathUtils
+import com.audira.lib.materialcolorreactnative.utils.ColorUtils
+import com.audira.lib.materialcolorreactnative.utils.MathUtils
 
 /**
  * In traditional color spaces, a color can be identified solely by the observer's measurement of

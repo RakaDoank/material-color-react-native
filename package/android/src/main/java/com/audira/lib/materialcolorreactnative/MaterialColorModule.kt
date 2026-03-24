@@ -1,8 +1,8 @@
-package com.audira.lib.reactnativematerialcolor
+package com.audira.lib.materialcolorreactnative
 
 import android.graphics.Bitmap
-import com.audira.lib.reactnativematerialcolor.utils.ImageUtils
-import com.audira.lib.reactnativematerialcolor.utils.StringUtils
+import com.audira.lib.materialcolorreactnative.utils.ImageUtils
+import com.audira.lib.materialcolorreactnative.utils.StringUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.facebook.react.bridge.Promise

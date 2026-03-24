@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/hct/Cam16.kt
-package com.audira.lib.reactnativematerialcolor.hct
+package com.audira.lib.materialcolorreactnative.hct
 
 import kotlin.math.PI
 import kotlin.math.abs
@@ -13,8 +13,8 @@ import kotlin.math.pow
 import kotlin.math.sign
 import kotlin.math.sin
 import kotlin.math.sqrt
-import com.audira.lib.reactnativematerialcolor.utils.ColorUtils
-import com.audira.lib.reactnativematerialcolor.utils.MathUtils
+import com.audira.lib.materialcolorreactnative.utils.ColorUtils
+import com.audira.lib.materialcolorreactnative.utils.MathUtils
 
 /**
  * CAM16, a color appearance model. Colors are not just defined by their hex code, but rather, a hex

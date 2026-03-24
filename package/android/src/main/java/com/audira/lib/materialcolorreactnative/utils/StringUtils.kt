@@ -1,5 +1,5 @@
 // See https://github.com/material-foundation/material-color-utilities/blob/main/kotlin/utils/StringUtils.kt
-package com.audira.lib.reactnativematerialcolor.utils
+package com.audira.lib.materialcolorreactnative.utils
 
 object StringUtils {
 

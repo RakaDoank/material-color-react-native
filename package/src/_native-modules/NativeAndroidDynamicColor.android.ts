@@ -5,15 +5,15 @@ import {
 } from "react-native"
 
 export interface Spec extends TurboModule {
-	getDynamicDarkColorScheme: () => CodegenTypes.UnsafeObject,
+	getDynamicDarkColor: () => CodegenTypes.UnsafeObject,
 
-	getDynamicLightColorScheme: () => CodegenTypes.UnsafeObject,
+	getDynamicLightColor: () => CodegenTypes.UnsafeObject,
 
 	/**
 	 * It's same as the `getDynamicDarkColorScheme` and `getDynamicLightColorScheme`,
 	 * but it's detect either dark or light theme by the native platform
 	 */
-	getDynamicColorScheme: () => CodegenTypes.UnsafeObject,
+	getDynamicColor: () => CodegenTypes.UnsafeObject,
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(

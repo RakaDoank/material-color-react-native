@@ -1,4 +1,4 @@
-package com.audira.lib.reactnativematerialcolor
+package com.audira.lib.materialcolorreactnative
 
 import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule

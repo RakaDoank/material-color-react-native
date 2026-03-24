@@ -37,7 +37,6 @@
 	},
 	"peerDependencies": {
 		"@material/material-color-utilities": "^0.4.0",
-		"color-blend": "^4",
 		"react-native": ">=0.79"
 	},
 	"codegenConfig": {
@@ -45,7 +44,7 @@
 		"type": "modules",
 		"jsSrcsDir": "./src/_native-modules",
 		"android": {
-			"javaPackageName": "com.audira.lib.reactnativematerialcolor"
+			"javaPackageName": "com.audira.lib.materialcolorreactnative"
 		}
 	}
 }

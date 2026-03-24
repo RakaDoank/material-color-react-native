@@ -1,10 +1,10 @@
-package com.audira.lib.reactnativematerialcolor.utils
+package com.audira.lib.materialcolorreactnative.utils
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.core.net.toUri
-import com.audira.lib.reactnativematerialcolor.quantize.QuantizerCelebi
-import com.audira.lib.reactnativematerialcolor.score.Score
+import com.audira.lib.materialcolorreactnative.quantize.QuantizerCelebi
+import com.audira.lib.materialcolorreactnative.score.Score
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget

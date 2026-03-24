@@ -42,11 +42,11 @@ export function ThemeProvider({
 }: ThemeProviderProps) {
 
 	const
-		colorScheme =
+		appColorScheme =
 			useColorScheme(),
 
 		isDarkColorScheme =
-			colorScheme === "dark",
+			appColorScheme === "dark",
 
 		[state, setState] =
 			useState<{
@@ -61,11 +61,9 @@ export function ThemeProvider({
 			useAndroidDynamicColorCompat(
 				state.sourceColor,
 				{
-					isDark: state.withAndroidDynamicColor == "dark"
-						? true
-						: state.withAndroidDynamicColor == "light"
-							? false
-							: undefined,
+					isDark: state.withAndroidDynamicColor === "dynamic" || !state.withAndroidDynamicColor
+						? undefined
+						: state.withAndroidDynamicColor === "dark",
 				},
 			),
 
@@ -79,7 +77,7 @@ export function ThemeProvider({
 					withAndroidDynamicColor: theme,
 				}))
 			}, [
-				setState, // becaues the continous vars
+				setState, // because the continous vars
 			]),
 
 		setSourceColor: ThemeContext["setSourceColor"] =
@@ -89,17 +87,18 @@ export function ThemeProvider({
 					withAndroidDynamicColor: null,
 				})
 			}, [
-				setState, // becaues the continous vars
+				setState, // because the continous vars
 			])
 
 	const
 		isDark =
-			state.withAndroidDynamicColor === "dark" ||
-			isDarkColorScheme,
-
-		colors =
 			state.withAndroidDynamicColor
-				? androidDynamicColor
+				? androidDynamicColor.theme === "dark"
+				: isDarkColorScheme,
+
+		colorScheme =
+			state.withAndroidDynamicColor
+				? androidDynamicColor.colorScheme
 				: materialColor.colorScheme
 
 	return (
@@ -107,19 +106,17 @@ export function ThemeProvider({
 			value={{
 				sourceColor: state.sourceColor,
 				usingAndroidDynamicColor: !!state.withAndroidDynamicColor,
-				colorScheme: colors,
+				colorScheme,
 				setAndroidDynamicColor,
 				setSourceColor,
 			}}
 		>
 			<PaperProvider
 				theme={{
+					isV3: true,
+					dark: isDark,
 					colors: state.withAndroidDynamicColor
-						? {
-							// I'll provide the `PaperColorAdapter.fromAndroidDynamicColor` later
-							...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
-							...colors,
-						}
+						? PaperColorAdapter.fromAndroidDynamicColor(androidDynamicColor)
 						: PaperColorAdapter.fromMaterialColor(materialColor),
 				}}
 			>
@@ -128,14 +125,14 @@ export function ThemeProvider({
 						...MD3DarkTheme,
 						...adaptedNavigationTheme.DarkTheme,
 						colors: {
-							...colors,
+							...colorScheme,
 							...adaptedNavigationTheme.DarkTheme.colors,
 						},
 					} : {
 						...MD3LightTheme,
 						...adaptedNavigationTheme.LightTheme,
 						colors: {
-							...colors,
+							...colorScheme,
 							...adaptedNavigationTheme.LightTheme.colors,
 						},
 					} }

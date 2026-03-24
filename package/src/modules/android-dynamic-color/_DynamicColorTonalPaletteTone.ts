@@ -1,0 +1,14 @@
+export type DynamicColorTonalPaletteTone =
+	| 100
+	| 99
+	| 95
+	| 90
+	| 80
+	| 70
+	| 60
+	| 50
+	| 40
+	| 30
+	| 20
+	| 10
+	| 0
