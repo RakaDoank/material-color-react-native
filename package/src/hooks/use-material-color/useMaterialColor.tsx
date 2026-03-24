@@ -30,27 +30,6 @@ export function useMaterialColor(
 		appColorScheme =
 			useColorScheme()
 
-	// return useMemo(() => {
-	// 	const materialColor = new MaterialColor(
-	// 		sourceColor,
-	// 		{
-	// 			...options,
-	// 			isDark: options?.isDark ?? appColorScheme == "dark",
-	// 		},
-	// 	)
-
-	// 	return {
-	// 		colorScheme: materialColor.colorScheme,
-	// 		contrastLevel: materialColor.contrastLevel,
-	// 		sourceColor: materialColor.sourceColor,
-	// 		theme: materialColor.theme,
-	// 		variant: materialColor.variant,
-	// 	}
-	// }, [
-	// 	sourceColor,
-	// 	appColorScheme,
-	// 	options,
-	// ])
 	return useMemo(() => {
 		return new MaterialColor(
 			sourceColor,
