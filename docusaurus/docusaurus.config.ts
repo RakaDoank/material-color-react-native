@@ -27,14 +27,14 @@ const config: Config = {
 	},
 
 	// Set the production url of your site here
-	url: "https://your-docusaurus-site.example.com",
+	url: "https://rakadoank.github.io",
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
-	baseUrl: "/",
+	baseUrl: "/material-color-react-native/",
 
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
-	organizationName: "facebook", // Usually your GitHub org/user name.
+	organizationName: "RakaDoank", // Usually your GitHub org/user name.
 	projectName: "docusaurus", // Usually your repo name.
 
 	onBrokenLinks: "throw",
@@ -50,33 +50,27 @@ const config: Config = {
 	presets: [
 		[
 			"classic",
-      {
-      	docs: {
-      		sidebarPath: "./sidebars.ts",
-      		// Please change this to your repo.
-      		// Remove this to remove the "edit this page" links.
-      		editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-      	},
-      	blog: {
-      		showReadingTime: true,
-      		feedOptions: {
-      			type: ["rss", "atom"],
-      			xslt: true,
-      		},
-      		// Please change this to your repo.
-      		// Remove this to remove the "edit this page" links.
-      		editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-      		// Useful options to enforce blogging best practices
-      		onInlineTags: "warn",
-      		onInlineAuthors: "warn",
-      		onUntruncatedBlogPosts: "warn",
-      	},
-      	theme: {
-      		customCss: "./src/css/custom.css",
-      	},
-      } satisfies Preset.Options,
+			{
+				docs: {
+					sidebarPath: "./sidebars.ts",
+					editUrl: "https://github.com/RakaDoank/material-color-react-native/tree/main/docusaurus/",
+				},
+				blog: {
+					showReadingTime: true,
+					feedOptions: {
+						type: ["rss", "atom"],
+						xslt: true,
+					},
+					editUrl: "https://github.com/RakaDoank/material-color-react-native/tree/main/docusaurus/",
+					// Useful options to enforce blogging best practices
+					onInlineTags: "warn",
+					onInlineAuthors: "warn",
+					onUntruncatedBlogPosts: "warn",
+				},
+				theme: {
+					customCss: "./src/css/custom.css",
+				},
+			} satisfies Preset.Options,
 		],
 	],
 
@@ -95,7 +89,7 @@ const config: Config = {
 			items: [
 				{
 					type: "docSidebar",
-					sidebarId: "tutorialSidebar",
+					sidebarId: "SIDEBAR_DOCUMENTATION",
 					position: "left",
 					label: "Documentation",
 				},
@@ -154,7 +148,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()} Material Color Native`,
+			copyright: `Copyright © ${new Date().getFullYear()} Material Color React Native`,
 		},
 		prism: {
 			theme: prismThemes.github,

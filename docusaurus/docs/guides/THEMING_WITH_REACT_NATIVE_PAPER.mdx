@@ -1,0 +1,143 @@
+---
+slug: /theming-with-react-native-paper
+---
+
+# Theming with React Native Paper
+
+[React Native Paper](https://reactnativepaper.com) is a great library to build a high-quality React Native app with standard-compliant Material Design library. Since the foundation is same, this library is really compatible with React Native Paper.
+
+Bring your app components with [React Native Paper](https://reactnativepaper.com) and [Material Color React Native](https://github.com/RakaDoank/material-color-react-native)!
+
+## Paper Color Adapter
+
+This class provides seamless integration to get correct colors map from the [`MaterialColor`](/docs/material-color-from-source) and [`AndroidDynamicColor`](/docs/android-dynamic-color) instance to the React Native Paper color provider. See this below as an basic example
+
+```tsx
+import {
+  MaterialColor,
+} from "material-color-react-native"
+
+import {
+  PaperColorAdapter,
+} from "material-color-react-native/react-native-paper"
+
+import {
+  PaperProvider,
+} from "react-native-paper"
+
+export default function Layout() {
+
+  const [sourceColor, setSourceColor] = useState("#ffde3f")
+
+  // or with Global State Management e.g. Zustand, Redux, Jotai
+  // even with persistent storage
+
+  return (
+    <PaperProvider
+      theme={{
+        colors: PaperProvider.fromMaterialColor(
+          new MaterialColor(sourceColor),
+        ),
+      }}
+    >
+      { /* your component */ }
+    </PaperProvider>
+  )
+
+}
+```
+
+That's it! That is really the core implementation of how to integrate with [React Native Paper](https://reactnativepaper.com) color provider.
+
+Now, you can bring your own implementation with [Material Color React Native](https://github.com/RakaDoank/material-color-react-native). See other basic examples below
+
+## Examples
+
+### Material Color From Source Image
+
+```tsx
+import {
+  useMaterialColorFromSourceImage,
+} from "material-color-react-native"
+
+import {
+  PaperColorAdapter,
+} from "material-color-react-native/react-native-paper"
+
+import {
+  PaperProvider,
+} from "react-native-paper"
+
+const fallbackSourceColor = "#ffde3f"
+
+export default function Layout() {
+
+  const
+    [sourceImageUri, setSourceImageUri] =
+      useState<string>("https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"), // or local file uri
+      // set the new sourceImageUri with React context or Global State Management
+
+    { data, isLoading } =
+      useMaterialColorFromSourceImage(
+        sourceImageUri,
+        undefined,
+        {
+          maxWidthOrHeight: 640,
+        }
+      )
+
+  return (
+    <PaperProvider
+      theme={{
+        colors: PaperProvider.fromMaterialColor(
+          data
+
+          // `data` is undefined
+          // Failed to get source color from image
+          // or image processing is not finished yet.
+          // build a material color from source color as a fallback
+
+          ?? new MaterialColor(fallbackSourceColor) 
+        )
+      }}
+    >
+      {/* your component */}
+    </PaperProvider>
+  )
+
+}
+```
+
+### Android Dynamic Color (Compat)
+
+```tsx
+import {
+  useAndroidDynamicColorCompat,
+} from "material-color-react-native"
+
+import {
+  PaperColorAdapter,
+} from "material-color-react-native/react-native-paper"
+
+import {
+  PaperProvider,
+} from "react-native-paper"
+
+const fallbackSourceColor = "#ffde3f"
+
+export default function Layout() {
+
+  const androidDynamicColor = useAndroidDynamicColorCompat(fallbackSourceColor)
+
+  return (
+    <PaperProvider
+      theme={{
+        colors: PaperProvider.fromAndroidDynamicColor(androidDynamicColor)
+      }}
+    >
+      {/* your component */}
+    </PaperProvider>
+  )
+
+}
+```

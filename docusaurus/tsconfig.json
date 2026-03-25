@@ -4,10 +4,10 @@
 		"../tsconfig.base.json"
 	],
 	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"@site/*": ["./*"]
-		},
+		"baseUrl": "."
+	},
+	"mdx": {
+		"checkMdx": true
 	},
 	"include": [
 		"./docusaurus.config.ts",

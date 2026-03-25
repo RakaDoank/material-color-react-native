@@ -44,4 +44,4 @@ Special utility in Android platform since Android 12 (SDK 31), that Google intro
 
 ### Theming with React Native Paper
 
-Fortunately, you can bring this library to build your app beautifully with Material Design components by using [react-native-paper](https://oss.callstack.com/react-native-paper). Get material color from this library, and provide it to React Native Paper color provider.
+Fortunately, you can bring this library to build your app beautifully with Material Design components by using [react-native-paper](https://oss.callstack.com/react-native-paper). Get material color from this library, and provide it to React Native Paper theme provider.

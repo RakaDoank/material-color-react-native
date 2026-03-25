@@ -1,0 +1,99 @@
+---
+slug: /android-dynamic-color
+---
+
+import {
+  BadgePlatform,
+} from "@site/src/components"
+
+# Android Dynamic Color
+
+Special utility in Android platform since Android 12 (SDK 31), that Google introduced Material Design 3 _a.k.a_ Material You, and brought their APIs for [enabling users to personalize their color experience in your app](https://developer.android.com/develop/ui/views/theming/dynamic-colors) from user personal wallpaper or through selected color variants in the wallpaper picker
+
+```tsx
+import {
+  AndroidDynamicColor,
+} from "material-color-react-native"
+
+if(AndroidDynamicColor.isAvailable()) {
+
+  const androidColor = new AndroidDynamicColor()
+  
+  console.log(
+    androidColor.colorScheme.primary,
+    androidColor.colorScheme.onPrimary,
+  
+    androidColor.colorScheme.primaryPalette.keyColor,
+    androidColor.colorScheme.primaryPalette.tone(70),
+  )
+
+}
+```
+
+:::warning
+Android Dynamic Color is available only for Android app and for Android SDK 31 (Android 12) or latest. Make sure that you are using the `isAvailable` static method.
+
+See [functional compatibility](#functional-compatibility) to keep cross platform works.
+:::
+
+## Light or Dark Scheme
+
+The `AndroidDynamicColor` class here is not using the [Appearance](https://reactnative.dev/docs/appearance) from React Native to determine whether the app is in dark or light color scheme. In this module, we let Android decide internally through their configuration.
+
+Fortunately, if you want to get only one of it, or both light and dark scheme, you can still pass the dark option to the class constructor
+
+```tsx
+const androidColor = new AndroidDynamicColor({
+  dark: true, // or false
+  // if undefined, we let Android decide
+})
+```
+
+:::info
+If you are using Expo, the `userInterfaceStyle` (from expo-system-ui) configuration or other frameworks configuration is ignored, because the dark or light theme is determined by Android Configuration UI Mode.
+:::
+
+## Functional Compatibility
+
+`AndroidDynamicColor` provides an instance as similar as possible to the `MaterialColor`, so you can easily access and seamless integration. The main difference is that we can't get the source color from Android Dynamic Color, it's simply because no Android API provides it.
+
+Then, if Android Dynamic Color is not available in user device, you can use `MaterialColor` as a fallback if it does.
+
+```tsx
+import {
+  AndroidDynamicColor,
+  MaterialColor,
+} from "material-color-react-native"
+
+const androidDynamicColor = AndroidDynamicColor.isAvailable()
+  ? new AndroidDynamicColor()
+  : null
+
+const materialColor = new MaterialColor("#ffde3f")
+
+// same object
+const colorScheme = androidDynamicColor?.colorScheme ?? materialColor.colorScheme
+
+const primary = colorScheme.primary
+```
+
+Alternatively, you can use `useAndroidDynamicColorCompat` in your React component
+
+```tsx
+import {
+  useAndroidDynamicColorCompat,
+} from "material-color-react-native"
+
+export function YourReactComponent() {
+
+  const materialColor = useAndroidDynamicColorCompat("#ffde3f")
+
+  console.log(
+    materialColor.colorScheme,
+    materialColor.primaryPalette.keyColor,
+  )
+
+}
+```
+
+You can see full example here at [this project repository](https://github.com/RakaDoank/material-color-react-native)
