@@ -1,13 +1,16 @@
-name: Release
+name: Test Build
 
 on:
   push:
     branches:
-      - release
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   release:
-    name: Release Package
+    name: Test Build
     runs-on: ubuntu-22.04
     environment: release
     permissions:
@@ -33,6 +36,3 @@ jobs:
       - name: Build Package
         run: |
           npm run package-builder
-      - name: Release to npm registry
-        run: |
-          pnpm publish --filter material-color-react-native --access public --no-git-checks
