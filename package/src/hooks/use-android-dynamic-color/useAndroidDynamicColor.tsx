@@ -33,7 +33,7 @@ export function useAndroidDynamicColor(
 			appColorScheme === "dark"
 
 	return new AndroidDynamicColor({
-		dark: options?.dark ?? dark,
+		isDark: options?.isDark ?? dark,
 	})
 
 }

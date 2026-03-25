@@ -60,13 +60,13 @@ export class AndroidDynamicColor
 
 	static dark() {
 		return new AndroidDynamicColor({
-			dark: true,
+			isDark: true,
 		})
 	}
 
 	static light() {
 		return new AndroidDynamicColor({
-			dark: false,
+			isDark: false,
 		})
 	}
 
@@ -77,7 +77,7 @@ export class AndroidDynamicColor
 	constructor(
 		options?: AndroidDynamicColorOptions,
 	) {
-		const isDark = options?.dark
+		const isDark = options?.isDark
 
 		/**
 		 * `ColorScheme` including the palettes

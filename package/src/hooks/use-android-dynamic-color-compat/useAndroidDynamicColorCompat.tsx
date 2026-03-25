@@ -45,7 +45,7 @@ export function useAndroidDynamicColorCompat(
 
 	if(AndroidDynamicColor.isAvailable()) {
 		return new AndroidDynamicColor({
-			dark: options?.isDark,
+			isDark: options?.isDark,
 		})
 	}
 
