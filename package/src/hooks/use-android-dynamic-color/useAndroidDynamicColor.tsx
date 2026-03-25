@@ -25,8 +25,15 @@ export function useAndroidDynamicColor(
 	options?: UseAndroidDynamicColorOptions,
 ): UseAndroidDynamicColorInstance {
 
-	useColorScheme()
+	const
+		appColorScheme =
+			useColorScheme(),
 
-	return new AndroidDynamicColor(options)
+		dark =
+			appColorScheme === "dark"
+
+	return new AndroidDynamicColor({
+		dark: options?.dark ?? dark,
+	})
 
 }
