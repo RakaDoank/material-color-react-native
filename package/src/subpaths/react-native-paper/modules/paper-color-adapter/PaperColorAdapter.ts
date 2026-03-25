@@ -6,7 +6,6 @@ import Color from "color"
 // } from "color-blend"
 
 import {
-	MD3Colors,
 	MD3DarkTheme,
 	MD3LightTheme,
 	type MD3Theme,
