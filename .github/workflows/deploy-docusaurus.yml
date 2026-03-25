@@ -1,0 +1,54 @@
+name: Deploy Docusaurus
+
+on:
+  push:
+    branches:
+      - deploy-docusaurus
+  pull_request:
+    branches:
+      - deploy-docusaurus
+
+jobs:
+  build:
+    name: Build Docusaurus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: pnpm/action-setup@v5
+        with:
+          version: 10
+          cache: true
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Docusaurus
+        run: cd docusaurus && npm run build
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./docusaurus/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
