@@ -7,7 +7,7 @@ import type {
 import Heading from "@theme/Heading";
 import clsx from "clsx";
 
-import styles from "./styles.module.css";
+import styles from "./_styles.module.css";
 
 type FeatureItem = {
 	title: string;
@@ -21,8 +21,7 @@ const FeatureList: FeatureItem[] = [
 		Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
 		description: (
 			<>
-				Docusaurus was designed from the ground up to be easily installed and
-				used to get your website up and running quickly.
+				Material Color React Native was designed from the ground up to be easily used and got the color system from the Material Design foundation.
 			</>
 		),
 	},
@@ -31,18 +30,16 @@ const FeatureList: FeatureItem[] = [
 		Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
 		description: (
 			<>
-				Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-				ahead and move your docs into the <code>docs</code> directory.
+				No random guides or additional installation step ahead. Get the Material color straight from a source color and a source image.
 			</>
 		),
 	},
 	{
-		title: "Powered by React",
+		title: "Powered by React Native",
 		Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
 		description: (
 			<>
-				Extend or customize your website layout by reusing React. Docusaurus can
-				be extended while reusing the same header and footer.
+				Using the Turbo Native Module in the new architecture of React Native.
 			</>
 		),
 	},
@@ -62,7 +59,7 @@ function Feature({ title, Svg, description }: FeatureItem) {
 	);
 }
 
-export default function HomepageFeatures(): ReactNode {
+export function HomepageFeatures(): ReactNode {
 	return (
 		<section className={ styles.features }>
 			<div className="container">

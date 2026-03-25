@@ -1,12 +1,13 @@
 ---
-slug: /material-color-from-source
+slug: /material-color
 ---
 
 import {
+  BadgePlatform,
   BadgePlatforms,
 } from "@site/src/components"
 
-# Material Color from Source
+# Material Color
 
 Build a Material color scheme to map material dynamic color, derived from your branded theme color, or from your any custom source color. The Material will generates color roles ([color scheme](#color-scheme)) and key colors ([tonal palettes](#palettes)) from your source color
 
@@ -113,32 +114,6 @@ console.log(
 
 > Based on [the Material Design](https://m3.material.io/styles/color/system/how-the-system-works), \`the system then manipulates tone and chroma values to generate **five complimentary key colors**\`, instead of **six**, which is the absence of error palette. Meanwhile the original source code from [@material/material-color-utilities](https://github.com/material-foundation/material-color-utilities) is still giving us the error palette. It's probably deprecated or removed in their next spec version.
 
-## React Hooks
-
-This is a perfect case to build and get Material color declaratively
-
-```tsx
-import {
-  useMaterialColor,
-} from "material-color-react-native"
-
-export function YourReactComponent() {
-
-  const [sourceColor, setColor] = useState("#ffde3f"),
-
-  const materialColor = useMaterialColor(sourceColor)
-
-  console.log(
-    materialColor.colorScheme.primary,
-    materialColor.colorScheme.onPrimary,
-
-    materialColor.primaryPalette.keyColor,
-    materialColor.primaryPalette.tone(80),
-  )
-
-}
-```
-
 ## Build from Source Image
 
 <BadgePlatforms
@@ -174,25 +149,27 @@ const localImageFileURI = "file:///xxxxxx"
 export function ReactComponent() {
 
   useEffect(() => {
+
     MaterialColor.fromSourceImage(YourLocalImage)
       .then(materialColor => {
+        console.log(
+          "colorScheme",
 
-        if(materialColor) {
-          console.log(
-            "colorScheme",
+          materialColor.sourceColor, // source color from an image
 
-            materialColor.sourceColor, // source color from an image
-
-            materialColor.colorScheme.primary,
-            materialColor.colorScheme.onPrimary,
-          )
-        }
-
+          materialColor.colorScheme.primary,
+          materialColor.colorScheme.onPrimary,
+        )
       })
 
-      MaterialColor.fromSourceImageUri(onlineImage).then(materialColor => {})
+      MaterialColor.fromSourceImageUri(onlineImage).then(materialColor => {
+        // your logics
+      })
 
-      MaterialColor.fromSourceImageUri(localImageFile).then(materialColor => {})
+      MaterialColor.fromSourceImageUri(localImageFile).then(materialColor => {
+        // your logics
+      })
+
   }, [])
 
 }
@@ -200,20 +177,20 @@ export function ReactComponent() {
 
 From the static method, you will get the same `MaterialColor` instance. The difference is **the instance could be null**, or thrown an error if the process is timed out or aborted by your own [AbortSignal](https://https://www.google.com/search?client=firefox-b-d&q=AbortSignal).
 
-:::note
-Probably in the next version or update, you don't have to check if the promise resolves an actual `MaterialColor` instance (not null). The static promise method guarantees to solve and return `MaterialColor` instance. If there is something happened beside of the timeout or the AbortSignal, this library will throw an proper error.
-:::
+### Processing Options
 
-### Image and Fetch Options
-
-From the static method, you still can provide [material options](#options) in the second argument, and additional image and fetch options in the third argument. There are useful options in there
+From the static method, the second argument is the [material options](#options), and the third is the processing options. See the processing options below
 
 ```ts
 MaterialColor.fromSourceImage(
   YourImage,
+
+  // material options
   {
     dark: true,
   },
+
+  // processing options
   {
     maxWidthOrHeight: 640,
   },
@@ -222,10 +199,10 @@ MaterialColor.fromSourceImage(
 
 #### maxWidthOrHeight
 
-This option is recommended to increase performance by limiting the image Bitmap. While it cannot guarantee to get the same result as the original image size, because the possibility of original color in a pixel will be blended into another and lose its channel if it shrunk, but you can still save to use it. Default is undefined.
+This option is recommended to increase performance by limiting the image Bitmap. While it cannot guarantee to get the same result as the original image size, because the possibility of original color in a pixel will be blended into another and lose its channel if it shrunk, but you can still save to use it. Default value is the original image size (`undefined`).
 
 :::info
-For your references, Bitmap represents as color each pixel in a image. In a Android, iOS, macOS, and Web, this library buffers the image's Bitmap in a 32 Bit Unsigned Integer which contain 4 bytes each ARGB/RGBA color pixels or 8 bits per color channel pixel. For instance, an 1000x1000 image will has 4MB buffer allocated on the heap.
+For your references, Bitmap represents as color each pixel in a image. In a Android, iOS, macOS, and Web, this library holds the buffer of the image's Bitmap in a 32 bit unsigned integer which contain 4 bytes each ARGB/RGBA color pixels or 8 bits per color channel pixel. For instance, an 1000x1000 image will has 4MB buffer allocated on the heap.
 :::
 
 #### timeout
@@ -236,15 +213,115 @@ A duration in milliseconds format to limit how long the fetch and image processi
 
 You can provide your own [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) to control when the process needs to be aborted. It does nothing if the fetch and image process are already done.
 
-### React Hooks
+### Only Source Color
+
+In some cases, you want to get only the source color from an image, and do your own things, you can use the `ImageUtils.sourceColorFromImageUri`
+
+```ts
+import {
+  Image,
+} from "react-native"
+
+import {
+  ImageUtils,
+} from "material-color-react-native"
+
+import YourLocalImage from "./_your-image.png"
+
+const yourLocalImageUri = Image.resolveAssetSource(YourLocalImage).uri
+
+ImageUtils.sourceColorFromImageUri(yourLocalImageUri) // second argument for maxWidthOrHeight, timeout, signal, other opts in the future
+  .then(sourceColor => {
+    console.log(sourceColor)
+    // sourceColor in hex code string
+  })
+
+// you can use this
+const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+// or this
+const localImageFileURI = "file:///xxxxxx"
+
+ImageUtils.sourceColorFromImageUri(onlineImage) // second argument for maxWidthOrHeight, timeout, signal. (other opts in the future)
+  .then(sourceColor => {
+    console.log(sourceColor)
+    // sourceColor in hex code string
+  })
+```
+
+:::note
+Build Material from Source Image is not compatible in [React Native for Windows](https://github.com/microsoft/react-native-windows). Hopefully, we can bring this utility to it.
+:::
+
+### Error Handling
+
+The promise resolver guarantee that return a valid source color from bare `ImageUtils`, or return a valid `MaterialColor` instance from the static method, but it might throw an exception if something unexpected ocurred.
+
+If this is happened, this library will throw `ImageUtils.SourceColorFromImageException` or `MaterialColor.SourceImageException` class. Both classes are same. You can cast with the `instanceof` operator, and check what type of error happened from the `type` member from that class
+
+```tsx
+import {
+  MaterialColor,
+} from "material-color-react-native"
+
+const localFileUri = "file:///xxxxxx"
+
+MaterialColor.fromSourceImage(localFileUri)
+  .then(materialColor => {
+    console.log(
+      materialColor.sourceColor,
+      materialColor.colorScheme.primary,
+    )
+  })
+  .catch(err => {
+    if(err instanceof MaterialColor.SourceImageException) {
+
+      if(err.type == MaterialColor.SourceColorFromImageException.TIMEDOUT) {
+        // If it's timed out …
+      } else if(err.type == MaterialColor.SourceColorFromImageException.ABORTED) {
+        // your own AbortSignal was aborted …
+      } else if(err.type == MaterialColor.SourceColorFromImageException.UNPROCESSABLE) {
+        // the image is unprocessable … 
+      }
+
+    }
+  })
+```
+
+## React Hooks
+
+### useMaterialColor
+
+This is a perfect case to build and get Material color declaratively
+
+```tsx
+import {
+  useMaterialColor,
+} from "material-color-react-native"
+
+export function YourReactComponent() {
+
+  const [sourceColor, setColor] = useState("#ffde3f"),
+
+  const materialColor = useMaterialColor(sourceColor)
+
+  console.log(
+    materialColor.colorScheme.primary,
+    materialColor.colorScheme.onPrimary,
+
+    materialColor.primaryPalette.keyColor,
+    materialColor.primaryPalette.tone(80),
+  )
+
+}
+```
+
+### useMaterialColorFromSourceImage
 
 You can also get material color from an image, but in React Hooks style
 
 :::info
 You can pass a `null` or `undefined` to these hooks below in its first argument. In case, you want to get material color from an image later, or after some events.
 :::
-
-#### `useMaterialColorFromSourceImage`
 
 ```tsx
 import {
@@ -269,9 +346,7 @@ export function YourReactComponent() {
 }
 ```
 
----
-
-#### `useMaterialColorFromSourceImageUri`
+### useMaterialColorFromSourceImageUri
 
 ```tsx
 import {
@@ -298,44 +373,3 @@ export function YourReactComponent() {
 
 }
 ```
-
-### Only Source Color
-
-In some cases, you want to get only the source color from an image, and do your own things, you can use the `ImageUtils.sourceColorFromImageUri`
-
-```ts
-import {
-  Image,
-} from "react-native"
-
-import {
-  ImageUtils,
-} from "material-color-react-native"
-
-import YourLocalImage from "./_your-image.png"
-
-const yourLocalImageUri = Image.resolveAssetSource(YourLocalImage).uri
-
-ImageUtils.sourceColorFromImageUri(yourLocalImageUri) // second argument for timeout, signal, other opts in the future
-  .then(sourceColor => {
-    if(sourceColor) {
-      // sourceColor in hex code string
-    }
-  })
-
-// you can use this
-const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
-// or this
-const localImageFileURI = "file:///xxxxxx"
-
-ImageUtils.sourceColorFromImageUri(onlineImage) // second argument for timeout, signal, other opts in the future
-  .then(sourceColor => {
-    if(sourceColor) {
-      // sourceColor in hex code string
-    }
-  })
-```
-
-:::note
-Probably in the next version or update, you don't have to check if the promise resolves an actual source color string (not null). The static promise method guarantees to solve and return source color string. If there is something happened beside of the timeout or the AbortSignal, this library will throw an proper error.
-:::

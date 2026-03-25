@@ -14,7 +14,7 @@ const title = "Material Color React Native"
 
 const config: Config = {
 	title,
-	tagline: "Bring material color utilities to React Native app",
+	tagline: "Bring Material color utilities to React Native app",
 	favicon: "img/favicon.ico",
 
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -114,6 +114,18 @@ const config: Config = {
 						{
 							label: "Getting Started",
 							to: "/docs/getting-started",
+						},
+						{
+							label: "Material Color",
+							to: "/docs/material-color",
+						},
+						{
+							label: "Android Dynamic Color",
+							to: "/docs/android-dynamic-color",
+						},
+						{
+							label: "Theming with React Native Paper",
+							to: "/docs/theming-with-react-native-paper",
 						},
 					],
 				},

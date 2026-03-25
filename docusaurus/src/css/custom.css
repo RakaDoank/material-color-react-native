@@ -28,3 +28,21 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+main > div.container > div > div:first-child {
+	opacity: 0;
+	animation-name: fadeup;
+	animation-duration: 280ms;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(1.25%) scaleY(1.025);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}

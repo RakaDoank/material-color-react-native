@@ -10,7 +10,12 @@ Bring your app components with [React Native Paper](https://reactnativepaper.com
 
 ## Paper Color Adapter
 
-This class provides seamless integration to get correct colors map from the [`MaterialColor`](/docs/material-color-from-source) and [`AndroidDynamicColor`](/docs/android-dynamic-color) instance to the React Native Paper color provider. See this below as an basic example
+`PaperColorAdapter` class provides seamless integration to get correct colors map from the [`MaterialColor`](/docs/material-color) and [`AndroidDynamicColor`](/docs/android-dynamic-color) instance to the React Native Paper color provider. You don't have to instantiate the `PaperColorAdapter`, just use its static method
+
+- `PaperColorAdapter.fromMaterialColor`
+- `PaperColorAdapter.fromAndroidDynamicColor`
+
+See this below as an basic example
 
 ```tsx
 import {
@@ -35,7 +40,7 @@ export default function Layout() {
   return (
     <PaperProvider
       theme={{
-        colors: PaperProvider.fromMaterialColor(
+        colors: PaperColorAdapter.fromMaterialColor(
           new MaterialColor(sourceColor),
         ),
       }}
@@ -47,7 +52,7 @@ export default function Layout() {
 }
 ```
 
-That's it! That is really the core implementation of how to integrate with [React Native Paper](https://reactnativepaper.com) color provider.
+That's it 🎉 That is really the core implementation of how to integrate it to the [React Native Paper](https://reactnativepaper.com) color provider.
 
 Now, you can bring your own implementation with [Material Color React Native](https://github.com/RakaDoank/material-color-react-native). See other basic examples below
 
@@ -89,15 +94,12 @@ export default function Layout() {
   return (
     <PaperProvider
       theme={{
-        colors: PaperProvider.fromMaterialColor(
-          data
-
+        colors: PaperColorAdapter.fromMaterialColor(
+          data ?? new MaterialColor(fallbackSourceColor) 
           // `data` is undefined
-          // Failed to get source color from image
-          // or image processing is not finished yet.
-          // build a material color from source color as a fallback
-
-          ?? new MaterialColor(fallbackSourceColor) 
+          // Probably because it's failed to get source color from image
+          // or the image processing is not finished yet
+          // Build a material color from a source color as a fallback
         )
       }}
     >
@@ -132,7 +134,7 @@ export default function Layout() {
   return (
     <PaperProvider
       theme={{
-        colors: PaperProvider.fromAndroidDynamicColor(androidDynamicColor)
+        colors: PaperColorAdapter.fromAndroidDynamicColor(androidDynamicColor)
       }}
     >
       {/* your component */}

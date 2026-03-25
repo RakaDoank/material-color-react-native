@@ -44,13 +44,13 @@ Fortunately, if you want to get only one of it, or both light and dark scheme, y
 
 ```tsx
 const androidColor = new AndroidDynamicColor({
-  dark: true, // or false
+  isDark: true, // or false
   // if undefined, we let Android decide
 })
 ```
 
 :::info
-If you are using Expo, the `userInterfaceStyle` (from expo-system-ui) configuration or other frameworks configuration is ignored, because the dark or light theme is determined by Android Configuration UI Mode.
+If the `isDark` option is undefined, and then you are using Expo, the `userInterfaceStyle` (from expo-system-ui) configuration or probably other frameworks configuration would be ignored, because the dark or light theme is determined by Android Configuration UI Mode.
 :::
 
 ## Functional Compatibility
@@ -78,6 +78,57 @@ const primary = colorScheme.primary
 ```
 
 Alternatively, you can use `useAndroidDynamicColorCompat` in your React component
+
+```tsx
+import {
+  useAndroidDynamicColorCompat,
+} from "material-color-react-native"
+
+export function YourReactComponent() {
+
+  const materialColor = useAndroidDynamicColorCompat("#ffde3f")
+
+  console.log(
+    materialColor.colorScheme,
+    materialColor.primaryPalette.keyColor,
+  )
+
+}
+```
+
+You can see full example here at [this project repository](https://github.com/RakaDoank/material-color-react-native)
+
+## React Hooks
+
+### useAndroidDynamicColor
+
+Simple React Hooks for you to get Android Dynamic Color but in React Hooks style
+
+```tsx
+import {
+  useAndroidDynamicColor,
+} from "material-color-react-native"
+
+export function YourReactComponent() {
+
+  const androidDynamicColor = useAndroidDynamicColor()
+
+  console.log(
+    androidDynamicColor.colorScheme.primary,
+    androidDynamicColor.colorScheme.onPrimary,
+
+    androidDynamicColor.secondaryPalette.keyColor,
+    androidDynamicColor.secondaryPalette.tone(80),
+  )
+
+}
+```
+
+This hook is using the `useColorScheme` hook from React Native. It's decided internally if it's return in dark or light mode, but you can still override the option by providing the argument to the `useAndroidDynamicColor`.
+
+### useAndroidDynamicColorCompat
+
+Alternatively, you can use `useAndroidDynamicColorCompat` in your React component to get Material color for non Android platform and older Android SDK by giving a source color to build `MaterialColor` as fallback if it does
 
 ```tsx
 import {

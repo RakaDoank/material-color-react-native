@@ -18,6 +18,7 @@ const sidebars: SidebarsConfig = {
 	// By default, Docusaurus generates a sidebar from the docs folder structure
 	SIDEBAR_DOCUMENTATION: [
 		"INTRODUCTION",
+		"GETTING_STARTED",
 		{
 			type: "category",
 			label: "Guides",
@@ -28,7 +29,7 @@ const sidebars: SidebarsConfig = {
 				description: "Learn how to build and get Material color",
 			},
 			items: [
-				"guides/MATERIAL_COLOR_FROM_SOURCE",
+				"guides/MATERIAL_COLOR",
 				"guides/ANDROID_DYNAMIC_COLOR",
 				"guides/THEMING_WITH_REACT_NATIVE_PAPER",
 			],
