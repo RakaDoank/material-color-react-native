@@ -72,7 +72,7 @@ import type {
 export function useMaterialColorFromImage(
 	sourceImage?: ImageSourcePropType | null,
 	options?: UseMaterialColorFromImageOptions,
-	imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
+	imageOptions?: ImageUtils.SourceColorFromImageProcessingOptions,
 ): UseMaterialColorFromImageInstance {
 
 	const imageUri = useMemo(() => {

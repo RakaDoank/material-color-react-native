@@ -69,7 +69,7 @@ import type {
 export function useMaterialColorFromImageUri(
 	sourceImage?: string | null,
 	options?: UseMaterialColorFromImageUriOptions,
-	imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
+	imageOptions?: ImageUtils.SourceColorFromImageProcessingOptions,
 ): UseMaterialColorFromImageUriInstance {
 
 	const

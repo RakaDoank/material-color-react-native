@@ -1,4 +1,4 @@
-export interface SourceColorFromImageUriOptions {
+export interface SourceColorFromImageProcessingOptions {
 	/**
 	 * In milliseconds. Default is zero. Zero or less indicates no timeout
 	 * @default 0
