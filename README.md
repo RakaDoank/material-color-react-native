@@ -26,4 +26,4 @@ This library is only supported on React Native New Architecture, and the materia
 
 ## Documentation
 
-> ⚠️ It's still in paper. The library documentation website will be published soon.
+Go to https://rakadoank.github.io/material-color-react-native

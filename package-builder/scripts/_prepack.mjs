@@ -6,13 +6,35 @@ const
 		node_path.join(import.meta.dirname, "..", ".."),
 
 	packagePath =
-		node_path.join(workspacePath, "package")
+		node_path.join(workspacePath, "package"),
+
+	/**
+	 * @type {{
+	 * 	src: string,
+	 * 	dest: string,
+	 * }[]}
+	 */
+	filesToCopy =
+		[
+			{
+				src: node_path.join(workspacePath, "LICENSE"),
+				dest: node_path.join(packagePath, "LICENSE"),
+			},
+			{
+				src: node_path.join(workspacePath, "README.md"),
+				dest: node_path.join(packagePath, "README.md"),
+			},
+		]
 
 export function prepack() {
 
-	node_fs.cpSync(
-		node_path.join(workspacePath, "LICENSE"),
-		node_path.join(packagePath, "LICENSE"),
+	Promise.all(
+		filesToCopy.map(file => {
+			return node_fs.promises.cp(
+				file.src,
+				file.dest,
+			)
+		}),
 	)
 
 }
