@@ -2,9 +2,13 @@ import {
 	sourceColorFromImage,
 } from "@material/material-color-utilities"
 
+import {
+	SourceColorFromImageException,
+} from "../SourceColorFromImageException"
+
 import type {
-	SourceColorFromImageUriOptions,
-} from "../SourceColorFromImageUriOptions"
+	SourceColorFromImageProcessingOptions,
+} from "../SourceColorFromImageProcessingOptions"
 
 import {
 	sourceColorFromImageUriController,
@@ -16,14 +20,14 @@ import {
  */
 export function sourceColorFromImageUri(
 	uri: string,
-	options?: SourceColorFromImageUriOptions,
-): Promise<number | null> {
+	options?: SourceColorFromImageProcessingOptions,
+): Promise<number> {
 
 	const image = document.createElement("img")
 	image.src = uri
 
 	if(typeof options?.maxWidthOrHeight === "number" && options.maxWidthOrHeight > 0) {
-		return new Promise<number | null>((resolve, reject) => {
+		return new Promise<number>((resolve, reject) => {
 			image.onload = () => {
 				const scale = options.maxWidthOrHeight! / Math.max(image.width, image.height)
 				image.width = Math.ceil(image.width * scale)
@@ -34,7 +38,7 @@ export function sourceColorFromImageUri(
 						try {
 							return sourceColorFromImage(image)
 						} catch {
-							return Promise.resolve(null)
+							throw new SourceColorFromImageException("UNPROCESSABLE")
 						}
 					},
 					() => {
@@ -47,7 +51,9 @@ export function sourceColorFromImageUri(
 			}
 
 			image.onerror = () => {
-				reject(new Error("Image load failed"));
+				reject(
+					new SourceColorFromImageException("UNPROCESSABLE"),
+				);
 			}
 		})
 	}

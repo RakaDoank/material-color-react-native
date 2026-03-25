@@ -121,7 +121,9 @@ export function useMaterialColorFromImageUri(
 					setState(currState => ({
 						sourceColor: currState.sourceColor,
 						isLoading: false,
-						error: error instanceof Error ? error : undefined,
+						error: error instanceof ImageUtils.SourceColorFromImageException
+							? error
+							: undefined,
 					}))
 				})
 		}

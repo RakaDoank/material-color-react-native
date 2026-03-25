@@ -1,14 +1,22 @@
+import {
+	SourceColorFromImageException,
+} from "./SourceColorFromImageException"
+
 import type {
-	SourceColorFromImageUriOptions,
-} from "./SourceColorFromImageUriOptions"
+	SourceColorFromImageProcessingOptions,
+} from "./SourceColorFromImageProcessingOptions"
 
 export function sourceColorFromImageUriController<
-	ResultType extends number | string | null,
+	ResultType extends number | string,
 >(
-	fn: () => Promise<ResultType>,
+	/**
+	 * Return with nullable value,
+	 * so this function internally can throw `SourceColorFromImageException`
+	 */
+	fn: () => Promise<ResultType | null>,
 	fnCanceller: () => void,
-	options?: SourceColorFromImageUriOptions,
-) {
+	options?: SourceColorFromImageProcessingOptions,
+): Promise<ResultType> {
 	const timeout = options?.timeout ?? 0
 
 	if(timeout > 0 || options?.signal) {
@@ -31,7 +39,9 @@ export function sourceColorFromImageUriController<
 			function onAbortFromTimeout() {
 				fnCanceller()
 				optionSignal?.removeEventListener("abort", onAbortFromOptionSignal)
-				reject(new Error("TIMEDOUT"))
+				reject(
+					new SourceColorFromImageException("TIMEDOUT"),
+				)
 			}
 
 			function onAbortFromOptionSignal() {
@@ -41,7 +51,9 @@ export function sourceColorFromImageUriController<
 				}
 				fnCanceller()
 				timeoutController?.signal.removeEventListener("abort", onAbortFromTimeout)
-				reject(new Error("ABORTED"))
+				reject(
+					new SourceColorFromImageException("ABORTED"),
+				)
 			}
 
 			timeoutController?.signal.addEventListener("abort", onAbortFromTimeout)
@@ -53,10 +65,23 @@ export function sourceColorFromImageUriController<
 				}
 				timeoutController?.signal.removeEventListener("abort", onAbortFromTimeout)
 				optionSignal?.removeEventListener("abort", onAbortFromOptionSignal)
-				resolve(result)
+
+				if(result === null || typeof result === "undefined") {
+					reject(
+						new SourceColorFromImageException("UNPROCESSABLE"),
+					)
+				} else {
+					resolve(result)
+				}
 			})
 		})
 	}
 
-	return fn()
+	return fn().then(result => {
+		if(result === null || typeof result === "undefined") {
+			throw new SourceColorFromImageException("UNPROCESSABLE")
+		}
+
+		return result
+	})
 }

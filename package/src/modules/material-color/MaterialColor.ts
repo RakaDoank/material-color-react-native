@@ -20,7 +20,7 @@ import {
 	ColorSchemeDelegate,
 } from "../_ColorSchemeDelegate"
 
-import type {
+import {
 	ImageUtils,
 } from "../utils"
 
@@ -53,6 +53,8 @@ export class MaterialColor implements MaterialColorInterface {
 		HIGH: 1.0,
 		REDUCED: -1.0,
 	} as const
+
+	static SourceImageException = ImageUtils.SourceColorFromImageException
 
 	/**
 	 * Get the source color from an image and return `MaterialColor` in promise.
@@ -101,8 +103,8 @@ export class MaterialColor implements MaterialColorInterface {
 	static fromSourceImage(
 		source: ImageSourcePropType,
 		options?: MaterialColorOptions,
-		imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
-	): Promise<MaterialColor | null> {
+		processingOptions?: ImageUtils.SourceColorFromImageProcessingOptions,
+	): Promise<MaterialColor> {
 		const assetSource = Platform.OS === "web"
 			? {
 				uri: typeof source === "object" &&
@@ -114,10 +116,10 @@ export class MaterialColor implements MaterialColorInterface {
 			: Image.resolveAssetSource(source)
 
 		if(assetSource.uri) {
-			return MaterialColor.fromSourceImageUri(assetSource.uri, options, imageOptions)
+			return MaterialColor.fromSourceImageUri(assetSource.uri, options, processingOptions)
 		}
 
-		return Promise.resolve(null)
+		throw new MaterialColor.SourceImageException("UNPROCESSABLE")
 	}
 
 	/**
@@ -132,21 +134,17 @@ export class MaterialColor implements MaterialColorInterface {
 	static fromSourceImageUri(
 		uri: string,
 		options?: MaterialColorOptions,
-		imageOptions?: ImageUtils.SourceColorFromImageUriOptions,
-	): Promise<MaterialColor | null> {
+		processingOptions?: ImageUtils.SourceColorFromImageProcessingOptions,
+	): Promise<MaterialColor> {
 		return new Promise(resolve => {
 			const { sourceHexColorFromImageUri } =
 				require("../utils/image/source-hex-color-from-image-uri/source-hex-color-from-image-uri") as
 					typeof import("../utils/image/source-hex-color-from-image-uri/source-hex-color-from-image-uri.native")
 
-			sourceHexColorFromImageUri(uri, imageOptions).then(color => {
-				if(color) {
-					resolve(
-						new MaterialColor(color, options),
-					)
-				} else {
-					resolve(null)
-				}
+			sourceHexColorFromImageUri(uri, processingOptions).then(color => {
+				resolve(
+					new MaterialColor(color, options),
+				)
 			})
 		})
 	}

@@ -2,9 +2,13 @@ import {
 	hexFromArgb,
 } from "@material/material-color-utilities"
 
+import {
+	SourceColorFromImageException,
+} from "../SourceColorFromImageException"
+
 import type {
-	SourceColorFromImageUriOptions,
-} from "../SourceColorFromImageUriOptions"
+	SourceColorFromImageProcessingOptions,
+} from "../SourceColorFromImageProcessingOptions"
 
 import {
 	sourceColorFromImageUri,
@@ -17,9 +21,12 @@ import {
  */
 export function sourceHexColorFromImageUri(
 	uri: string,
-	options?: SourceColorFromImageUriOptions,
-): Promise<string | null> {
+	options?: SourceColorFromImageProcessingOptions,
+): Promise<string> {
 	return sourceColorFromImageUri(uri, options).then(argb => {
-		return argb ? hexFromArgb(argb) : null
+		if(typeof argb === "number") {
+			return hexFromArgb(argb)
+		}
+		throw new SourceColorFromImageException("UNPROCESSABLE")
 	})
 }

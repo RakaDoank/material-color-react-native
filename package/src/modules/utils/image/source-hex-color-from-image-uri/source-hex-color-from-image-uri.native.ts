@@ -1,8 +1,8 @@
 import NativeMaterialColor from "../../../../_native-modules/NativeMaterialColor"
 
 import type {
-	SourceColorFromImageUriOptions,
-} from "../SourceColorFromImageUriOptions"
+	SourceColorFromImageProcessingOptions,
+} from "../SourceColorFromImageProcessingOptions"
 
 import {
 	sourceColorFromImageUriController,
@@ -14,7 +14,7 @@ import {
  * @param uri Image uri file
  * @returns Hex color string
  */
-export function sourceHexColorFromImageUri(uri: string, options?: SourceColorFromImageUriOptions): Promise<string | null> {
+export function sourceHexColorFromImageUri(uri: string, options?: SourceColorFromImageProcessingOptions): Promise<string> {
 	const signalID = Math.random().toString()
 
 	return sourceColorFromImageUriController(
