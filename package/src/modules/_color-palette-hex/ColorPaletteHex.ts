@@ -5,13 +5,13 @@ import {
 } from "@material/material-color-utilities"
 
 import type {
-	TonalPaletteHexInterface,
-} from "./TonalPaletteHexInterface"
+	ColorPaletteHexInterface,
+} from "./ColorPaletteHexInterface"
 
 /**
  * This class is a simple implementation of the `TonalPalette` from the `@material/material-color-utilities` to get the Hex color, instead of the Hct and Argb.
  */
-export class TonalPaletteHex implements TonalPaletteHexInterface {
+export class ColorPaletteHex implements ColorPaletteHexInterface {
 
 	readonly keyColor: string
 

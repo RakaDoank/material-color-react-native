@@ -16,13 +16,13 @@ import type {
 	AndroidDynamicColorOptions,
 } from "./AndroidDynamicColorOptions"
 
+import {
+	DynamicColorPalettesDelegate,
+} from "./_DynamicColorPalettesDelegate"
+
 import type {
 	DynamicColorReadableMap,
 } from "./_DynamicColorReadableMap"
-
-import {
-	DynamicColorTonalPalettesDelegate,
-} from "./_DynamicColorTonalPalettesDelegate"
 
 /**
  * Returns Android Dynamic Color based on user's wallpaper and style.
@@ -33,7 +33,7 @@ import {
  * If you are using Expo, the `userInterfaceStyle` (from expo-system-ui) configuration, or other frameworks configuration is ignored, because the theme (dark or light) detection is using Android native API
  */
 export class AndroidDynamicColor
-	extends DynamicColorTonalPalettesDelegate
+	extends DynamicColorPalettesDelegate
 	implements AndroidDynamicColorInterface {
 
 	/**

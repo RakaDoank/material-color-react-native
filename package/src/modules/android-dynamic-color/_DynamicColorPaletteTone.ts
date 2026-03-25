@@ -1,4 +1,4 @@
-export type DynamicColorTonalPaletteTone =
+export type DynamicColorPaletteTone =
 	| 100
 	| 99
 	| 95

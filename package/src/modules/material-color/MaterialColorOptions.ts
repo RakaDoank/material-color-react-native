@@ -3,12 +3,12 @@ import type {
 } from "@material/material-color-utilities"
 
 import type {
-	MaterialColorTonalPalettes,
-} from "./MaterialColorTonalPalettes"
+	MaterialColorPalettes,
+} from "./MaterialColorPalettes"
 
 type Options = Omit<
 	Partial<ConstructorParameters<typeof DynamicScheme>[0]>,
-	| keyof MaterialColorTonalPalettes
+	| keyof MaterialColorPalettes
 	| "sourceColorHct"
 >
 
@@ -27,5 +27,5 @@ type Options = Omit<
  * }
  * ```
  */
-export interface MaterialColorOptions extends Options, Partial<Record<keyof MaterialColorTonalPalettes, string>> {
+export interface MaterialColorOptions extends Options, Partial<Record<keyof MaterialColorPalettes, string>> {
 }

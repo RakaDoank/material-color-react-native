@@ -3,10 +3,10 @@ import type {
 } from "../../types"
 
 import type {
-	DynamicColorTonalPalettesDelegate,
-} from "./_DynamicColorTonalPalettesDelegate"
+	DynamicColorPalettesDelegate,
+} from "./_DynamicColorPalettesDelegate"
 
-export interface AndroidDynamicColorInterface extends DynamicColorTonalPalettesDelegate {
+export interface AndroidDynamicColorInterface extends DynamicColorPalettesDelegate {
 	colorScheme: ColorScheme,
 	theme:
 		| "light"

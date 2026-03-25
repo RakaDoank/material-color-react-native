@@ -13,12 +13,12 @@ import {
 } from "@material/material-color-utilities"
 
 import {
-	ColorSchemeDelegate,
-} from "../_ColorSchemeDelegate"
+	ColorPalettesDelegate,
+} from "../_ColorPalettesDelegate"
 
 import {
-	TonalPalettesDelegate,
-} from "../_TonalPalettesDelegate"
+	ColorSchemeDelegate,
+} from "../_ColorSchemeDelegate"
 
 import type {
 	ImageUtils,
@@ -251,7 +251,7 @@ export class MaterialColor implements MaterialColorInterface {
 				neutralPalette,
 				neutralVariantPalette,
 			} =
-				TonalPalettesDelegate.fromDynamicScheme(dynamicScheme)
+				ColorPalettesDelegate.fromDynamicScheme(dynamicScheme)
 
 		this.primaryPalette = primaryPalette
 		this.secondaryPalette = secondaryPalette

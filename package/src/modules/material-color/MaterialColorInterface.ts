@@ -8,10 +8,10 @@ import type {
 } from "../../types"
 
 import type {
-	MaterialColorTonalPalettes,
-} from "./MaterialColorTonalPalettes"
+	MaterialColorPalettes,
+} from "./MaterialColorPalettes"
 
-export interface MaterialColorInterface extends MaterialColorTonalPalettes {
+export interface MaterialColorInterface extends MaterialColorPalettes {
 	/**
 	 * Your original source color in hex code
 	 */

@@ -1,23 +1,23 @@
 import {
-	TonalPaletteHex,
-} from "../_tonal-palette-hex"
+	ColorPaletteHex,
+} from "../_color-palette-hex"
+
+import type {
+	DynamicColorPalette,
+} from "./_DynamicColorPalette"
 
 import type {
 	DynamicColorReadableMap,
 } from "./_DynamicColorReadableMap"
 
-import type {
-	DynamicColorTonalPalette,
-} from "./_DynamicColorTonalPalette"
+export class DynamicColorPalettesDelegate {
 
-export class DynamicColorTonalPalettesDelegate {
-
-	readonly primaryPalette: DynamicColorTonalPalette
-	readonly secondaryPalette: DynamicColorTonalPalette
-	readonly tertiaryPalette: DynamicColorTonalPalette
-	readonly errorPalette: DynamicColorTonalPalette
-	readonly neutralPalette: DynamicColorTonalPalette
-	readonly neutralVariantPalette: DynamicColorTonalPalette
+	readonly primaryPalette: DynamicColorPalette
+	readonly secondaryPalette: DynamicColorPalette
+	readonly tertiaryPalette: DynamicColorPalette
+	readonly errorPalette: DynamicColorPalette
+	readonly neutralPalette: DynamicColorPalette
+	readonly neutralVariantPalette: DynamicColorPalette
 
 	constructor(
 		dynamicColor: DynamicColorReadableMap,
@@ -71,7 +71,7 @@ export class DynamicColorTonalPalettesDelegate {
 
 		// Fix: Error palette does not exist
 		// Desperately use the "error" color as the key color
-		this.errorPalette = new TonalPaletteHex(dynamicColor.error)
+		this.errorPalette = new ColorPaletteHex(dynamicColor.error)
 
 	}
 

@@ -8,22 +8,22 @@ import type {
 } from "../types"
 
 import {
-	TonalPaletteHex,
-} from "./_tonal-palette-hex"
+	ColorPaletteHex,
+} from "./_color-palette-hex"
 
-export class TonalPalettesDelegate {
+export class ColorPalettesDelegate {
 
-	readonly primaryPalette: TonalPaletteHex
-	readonly secondaryPalette: TonalPaletteHex
-	readonly tertiaryPalette: TonalPaletteHex
-	readonly errorPalette: TonalPaletteHex
-	readonly neutralPalette: TonalPaletteHex
-	readonly neutralVariantPalette: TonalPaletteHex
+	readonly primaryPalette: ColorPaletteHex
+	readonly secondaryPalette: ColorPaletteHex
+	readonly tertiaryPalette: ColorPaletteHex
+	readonly errorPalette: ColorPaletteHex
+	readonly neutralPalette: ColorPaletteHex
+	readonly neutralVariantPalette: ColorPaletteHex
 
 	static fromDynamicScheme(
 		dynamicScheme: DynamicScheme,
 	) {
-		return new TonalPalettesDelegate({
+		return new ColorPalettesDelegate({
 			primaryPalette: hexFromArgb(dynamicScheme.primaryPalette.keyColor.toInt()),
 			secondaryPalette: hexFromArgb(dynamicScheme.secondaryPalette.keyColor.toInt()),
 			tertiaryPalette: hexFromArgb(dynamicScheme.tertiaryPalette.keyColor.toInt()),
@@ -41,12 +41,12 @@ export class TonalPalettesDelegate {
 			[Key in ColorPalettePropName]: string
 		},
 	) {
-		this.primaryPalette = new TonalPaletteHex(palettes.primaryPalette)
-		this.secondaryPalette = new TonalPaletteHex(palettes.secondaryPalette)
-		this.tertiaryPalette = new TonalPaletteHex(palettes.tertiaryPalette)
-		this.errorPalette = new TonalPaletteHex(palettes.errorPalette)
-		this.neutralPalette = new TonalPaletteHex(palettes.neutralPalette)
-		this.neutralVariantPalette = new TonalPaletteHex(palettes.neutralVariantPalette)
+		this.primaryPalette = new ColorPaletteHex(palettes.primaryPalette)
+		this.secondaryPalette = new ColorPaletteHex(palettes.secondaryPalette)
+		this.tertiaryPalette = new ColorPaletteHex(palettes.tertiaryPalette)
+		this.errorPalette = new ColorPaletteHex(palettes.errorPalette)
+		this.neutralPalette = new ColorPaletteHex(palettes.neutralPalette)
+		this.neutralVariantPalette = new ColorPaletteHex(palettes.neutralVariantPalette)
 	}
 
 }

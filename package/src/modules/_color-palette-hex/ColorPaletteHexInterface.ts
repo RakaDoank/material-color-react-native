@@ -1,4 +1,4 @@
-export interface TonalPaletteHexInterface {
+export interface ColorPaletteHexInterface {
 	readonly keyColor: string,
 	/**
 	 * Return tone palette in Hex code

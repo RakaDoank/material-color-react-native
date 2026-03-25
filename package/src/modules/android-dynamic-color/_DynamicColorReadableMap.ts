@@ -3,8 +3,8 @@ import type {
 } from "../../types"
 
 import type {
-	DynamicColorTonalPaletteTone,
-} from "./_DynamicColorTonalPaletteTone"
+	DynamicColorPaletteTone,
+} from "./_DynamicColorPaletteTone"
 
 /**
  * From React Native Turbo Module
@@ -14,7 +14,7 @@ import type {
 export type DynamicColorReadableMap =
 	& ColorScheme
 	& {
-		[PaletteKey in `${"primary" | "secondary" | "tertiary" | "tertiaryPalette" | "neutral" | "neutralVariant"}${DynamicColorTonalPaletteTone}`]: string
+		[PaletteKey in `${"primary" | "secondary" | "tertiary" | "tertiaryPalette" | "neutral" | "neutralVariant"}${DynamicColorPaletteTone}`]: string
 	}
 	& {
 		isDark: boolean
