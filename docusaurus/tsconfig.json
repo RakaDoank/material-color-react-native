@@ -12,6 +12,7 @@
 	"include": [
 		"./docusaurus.config.ts",
 		"./sidebars.ts",
+		"./docs/definitions/typedoc-sidebar.cjs",
 		"./src/**/*"
 	],
 	"exclude": [

@@ -93,6 +93,12 @@ const config: Config = {
 					position: "left",
 					label: "Documentation",
 				},
+				{
+					type: "docSidebar",
+					sidebarId: "SIDEBAR_DEFINITIONS",
+					position: "left",
+					label: "Definitions",
+				},
 				// { to: "/blog", label: "Blog", position: "left" },
 				{
 					href: "https://github.com/RakaDoank/material-color-react-native",
@@ -167,6 +173,26 @@ const config: Config = {
 			darkTheme: prismThemes.dracula,
 		},
 	} satisfies Preset.ThemeConfig,
+
+	plugins: [
+		[
+			"docusaurus-plugin-typedoc",
+			{
+				entryPoints: [
+					"../package/src/index.ts",
+					"../package/src/subpaths/react-native-paper/index.ts",
+				],
+				out: "./docs/definitions",
+				tsconfig: "../package/tsconfig.json",
+				excludeExternals: true,
+				readme: "none",
+				groupOrder: [
+					"alphabetical",
+				],
+				typescript: true,
+			},
+		],
+	],
 };
 
 export default config;

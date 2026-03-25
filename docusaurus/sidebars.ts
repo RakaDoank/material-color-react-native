@@ -36,6 +36,22 @@ const sidebars: SidebarsConfig = {
 		},
 	],
 
+	SIDEBAR_DEFINITIONS: [
+		{
+			type: "doc",
+			label: "Overview",
+			id: "definitions/index",
+		},
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+		require("./docs/definitions/typedoc-sidebar.cjs")[0].items,
+		{
+			type: "category",
+			label: "Subpaths",
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+			items: require("./docs/definitions/typedoc-sidebar.cjs")[1].items,
+		},
+	],
+
 	// But you can create a sidebar manually
 	/*
 	tutorialSidebar: [
