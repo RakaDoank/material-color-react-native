@@ -1,6 +1,6 @@
 {
 	"name": "material-color-react-native",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "Bring material color utilities to React Native app",
 	"license": "MIT",
 	"author": "RakaDoank <rakaaudira@gmail.com> (https://github.com/RakaDoank)",
@@ -11,7 +11,14 @@
 		"apple",
 		"cpp",
 		"lib",
-		"src"
+		"src",
+		"*.podspec",
+		"!android/build",
+		"!android/gradle",
+		"!android/gradlew",
+		"!android/gradlew.bat",
+		"!android/local.properties",
+		"!ios/build"
 	],
 	"exports": {
 		".": {
