@@ -315,7 +315,7 @@ export function YourReactComponent() {
 }
 ```
 
-### useMaterialColorFromSourceImage
+### useMaterialColorFromImage
 
 You can also get material color from an image, but in React Hooks style
 
@@ -325,7 +325,7 @@ You can pass a `null` or `undefined` to these hooks below in its first argument.
 
 ```tsx
 import {
-  useMaterialColorFromSourceImage,
+  useMaterialColorFromImage,
 } from "material-color-react-native"
 
 // You can use this top import, or the `require()` style import
@@ -333,7 +333,7 @@ import YourLocalImage from "./_your-image.png"
 
 export function YourReactComponent() {
 
-  const { data, isLoading, error } = useMaterialColorFromSourceImage(YourLocalImage)
+  const { data, isLoading, error } = useMaterialColorFromImage(YourLocalImage)
 
   if(data) { // `data` is MaterialColor instance
     console.log(
@@ -346,11 +346,11 @@ export function YourReactComponent() {
 }
 ```
 
-### useMaterialColorFromSourceImageUri
+### useMaterialColorFromImageUri
 
 ```tsx
 import {
-  useMaterialColorFromSourceImageUri,
+  useMaterialColorFromImageUri,
 } from "material-color-react-native"
 
 // or this
@@ -361,7 +361,7 @@ const localImageFileURI = "file:///xxxxxx"
 
 export function YourReactComponent() {
 
-  const { data, isLoading, error } = useMaterialColorFromSourceImageUri(onlineImage)
+  const { data, isLoading, error } = useMaterialColorFromImageUri(onlineImage)
 
   if(data) { // `data` is MaterialColor instance
     console.log(
@@ -381,5 +381,5 @@ See definitions.
 - [ImageUtils](/docs/definitions/index/namespaces/ImageUtils)
 - [MaterialColor](/docs/definitions/index/classes/MaterialColor)
 - [useMaterialColor](/docs/definitions/index/functions/useMaterialColor)
-- [useMaterialColorFromSourceImage](/docs/definitions/index/functions/useMaterialColorFromSourceImage)
-- [useMaterialColorFromSourceImageUri](/docs/definitions/index/functions/useMaterialColorFromImageUri)
+- [useMaterialColorFromImage](/docs/definitions/index/functions/useMaterialColorFromImage)
+- [useMaterialColorFromImageUri](/docs/definitions/index/functions/useMaterialColorFromImageUri)

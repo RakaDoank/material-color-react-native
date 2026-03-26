@@ -189,7 +189,6 @@ const config: Config = {
 				groupOrder: [
 					"alphabetical",
 				],
-				typescript: true,
 			},
 		],
 	],
