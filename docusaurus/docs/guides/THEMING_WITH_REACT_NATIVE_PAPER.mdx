@@ -66,7 +66,7 @@ Now, you can bring your own implementation with [Material Color React Native](/d
 
 ```tsx
 import {
-  useMaterialColorFromSourceImage,
+  useMaterialColorFromImageUri,
 } from "material-color-react-native"
 
 import {
@@ -83,11 +83,11 @@ export default function Layout() {
 
   const
     [sourceImageUri, setSourceImageUri] =
-      useState<string>("https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"), // or local file uri
+      useState("https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"), // or local file uri
       // set the new sourceImageUri with React context or Global State Management
 
     { data, isLoading } =
-      useMaterialColorFromSourceImage(
+      useMaterialColorFromImageUri(
         sourceImageUri,
         undefined,
         {
