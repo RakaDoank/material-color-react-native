@@ -9,10 +9,10 @@ import {
 } from "../_source-color-from-image-uri-controller"
 
 /**
- * Get source color from an image.
+ * Get source color in Argb integer from an image.
  * 
  * @param uri Image uri file
- * @returns Argb color
+ * @returns Argb color integer
  */
 export function sourceColorFromImageUri(uri: string, options?: SourceColorFromImageProcessingOptions): Promise<number> {
 	const signalID = Math.random().toString()

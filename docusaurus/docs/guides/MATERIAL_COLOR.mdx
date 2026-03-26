@@ -9,7 +9,7 @@ import {
 
 # Material Color
 
-Build a Material color scheme to map material dynamic color, derived from your branded theme color, or from your any custom source color. The Material will generates color roles ([color scheme](#color-scheme)) and key colors ([tonal palettes](#palettes)) from your source color
+Build a Material color scheme to map material dynamic color, derived from your branded theme color, or from your any custom source color. The Material will generates color roles ([color scheme](#color-scheme)) and key colors ([palettes](#palettes)) from your source color
 
 ```ts
 import {
@@ -22,7 +22,7 @@ const materialColor = new MaterialColor("#ffde3f")
 > The source color has to be in Hex code format, e.g #RRGGBB, or #RRGGBBAA, or #AARRGGBB
 
 :::info
-Check the `MaterialColor` TypeScript definition to see all its members, methods, and statics.
+Check the [`MaterialColor`](http://localhost:3000/material-color-react-native/docs/definitions/index/classes/MaterialColor) TypeScript definitions to see all its members, methods, and statics.
 :::
 
 ## Material Options
@@ -129,8 +129,8 @@ This library provide an option for you to build Material color with an image, ei
 
 It's straightforward method, you can use these static methods
 
-- `MaterialColor.fromSourceImage` is for a static bundled image
-- `MaterialColor.fromSourceImageUri` is for a local image file or an online image
+- [`MaterialColor.fromSourceImage`](/docs/definitions/index/classes/MaterialColor#fromsourceimage) is for a static bundled image
+- [`MaterialColor.fromSourceImageUri`](/docs/definitions/index/classes/MaterialColor#fromsourceimageuri) is for a local image file or an online image
 
 ```tsx
 import {
@@ -175,11 +175,11 @@ export function ReactComponent() {
 }
 ```
 
-From the static method, you will get the same `MaterialColor` instance. The difference is **the instance could be null**, or thrown an error if the process is timed out or aborted by your own [AbortSignal](https://https://www.google.com/search?client=firefox-b-d&q=AbortSignal).
+From the static method, you will get the same [`MaterialColor`](/docs/definitions/index/classes/MaterialColor) instance. The difference is **the instance could be null**, or thrown an error if the process is timed out or aborted by your own [AbortSignal](https://https://www.google.com/search?client=firefox-b-d&q=AbortSignal).
 
 ### Processing Options
 
-From the static method, the second argument is the [material options](#options), and the third is the processing options. See the processing options below
+From the static method, the second argument is the [material options](#material-options), and the third is the processing options. See the processing options below
 
 ```ts
 MaterialColor.fromSourceImage(
@@ -215,7 +215,7 @@ You can provide your own [AbortSignal](https://developer.mozilla.org/en-US/docs/
 
 ### Only Source Color
 
-In some cases, you want to get only the source color from an image, and do your own things, you can use the `ImageUtils.sourceColorFromImageUri`
+In some cases, you want to get only the source color from an image, and do your own things, you can use the [`ImageUtils.sourceHexColorFromImageUri`](/docs/definitions/index/namespaces/ImageUtils/functions/sourceHexColorFromImageUri)
 
 ```ts
 import {
@@ -254,9 +254,9 @@ Build Material from Source Image is not compatible in [React Native for Windows]
 
 ### Error Handling
 
-The promise resolver guarantee that return a valid source color from bare `ImageUtils`, or return a valid `MaterialColor` instance from the static method, but it might throw an exception if something unexpected ocurred.
+The promise resolver guarantee that return a valid source color from bare `ImageUtils`, or return a valid [`MaterialColor`](http://localhost:3000/material-color-react-native/docs/definitions/index/classes/MaterialColor) instance from the static method, but it might throw an exception if something unexpected ocurred.
 
-If this is happened, this library will throw `ImageUtils.SourceColorFromImageException` or `MaterialColor.SourceImageException` class. Both classes are same. You can cast with the `instanceof` operator, and check what type of error happened from the `type` member from that class
+If this is happened, this library will throw [`ImageUtils.SourceColorFromImageException`](http://localhost:3000/material-color-react-native/docs/definitions/index/namespaces/ImageUtils/classes/SourceColorFromImageException) or [`MaterialColor.SourceImageException`](/docs/definitions/index/classes/MaterialColor#sourceimageexception) class. Both classes are same. You can cast with the `instanceof` operator, and check what type of error happened from the `type` member from that class
 
 ```tsx
 import {
@@ -373,3 +373,13 @@ export function YourReactComponent() {
 
 }
 ```
+
+## Definitions
+
+See definitions.
+
+- [ImageUtils](/docs/definitions/index/namespaces/ImageUtils)
+- [MaterialColor](/docs/definitions/index/classes/MaterialColor)
+- [useMaterialColor](/docs/definitions/index/functions/useMaterialColor)
+- [useMaterialColorFromSourceImage](/docs/definitions/index/functions/useMaterialColorFromSourceImage)
+- [useMaterialColorFromSourceImageUri](/docs/definitions/index/functions/useMaterialColorFromImageUri)

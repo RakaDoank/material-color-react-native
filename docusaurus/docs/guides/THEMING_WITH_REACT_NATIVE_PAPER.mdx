@@ -6,14 +6,18 @@ slug: /theming-with-react-native-paper
 
 [React Native Paper](https://reactnativepaper.com) is a great library to build a high-quality React Native app with standard-compliant Material Design library. Since the foundation is same, this library is really compatible with React Native Paper.
 
-Bring your app components with [React Native Paper](https://reactnativepaper.com) and [Material Color React Native](https://github.com/RakaDoank/material-color-react-native)!
+Bring your app components with [React Native Paper](https://reactnativepaper.com) and [Material Color React Native](/docs/introduction)!
+
+:::info
+This is adapter is only providing integration to Paper color v3. Simply, because Material Color React Native is not using Material Design 2 color system.
+:::
 
 ## Paper Color Adapter
 
-`PaperColorAdapter` class provides seamless integration to get correct colors map from the [`MaterialColor`](/docs/material-color) and [`AndroidDynamicColor`](/docs/android-dynamic-color) instance to the React Native Paper color provider. You don't have to instantiate the `PaperColorAdapter`, just use its static method
+[`PaperColorAdapter`](http://localhost:3000/material-color-react-native/docs/definitions/subpaths/react-native-paper/classes/PaperColorAdapter) class provides seamless integration to get correct colors map from the [`MaterialColor`](/docs/material-color) and [`AndroidDynamicColor`](/docs/android-dynamic-color) instance to the React Native Paper color provider. You don't have to instantiate the [`PaperColorAdapter`](http://localhost:3000/material-color-react-native/docs/definitions/subpaths/react-native-paper/classes/PaperColorAdapter) class, just use its static method
 
-- `PaperColorAdapter.fromMaterialColor`
-- `PaperColorAdapter.fromAndroidDynamicColor`
+- [`PaperColorAdapter.fromMaterialColor`](/docs/definitions/subpaths/react-native-paper/classes/PaperColorAdapter#frommaterialcolor)
+- [`PaperColorAdapter.fromAndroidDynamicColor`](/docs/definitions/subpaths/react-native-paper/classes/PaperColorAdapter#fromandroiddynamiccolor)
 
 See this below as an basic example
 
@@ -54,7 +58,7 @@ export default function Layout() {
 
 That's it 🎉 That is really the core implementation of how to integrate it to the [React Native Paper](https://reactnativepaper.com) color provider.
 
-Now, you can bring your own implementation with [Material Color React Native](https://github.com/RakaDoank/material-color-react-native). See other basic examples below
+Now, you can bring your own implementation with [Material Color React Native](/docs/introduction). See other basic examples below
 
 ## Examples
 
@@ -143,3 +147,9 @@ export default function Layout() {
 
 }
 ```
+
+## Definitions
+
+See definitions
+
+- [`PaperColorAdapter`](http://localhost:3000/material-color-react-native/docs/definitions/subpaths/react-native-paper/classes/PaperColorAdapter)
