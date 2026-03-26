@@ -125,7 +125,7 @@ console.log(
   }}
 />
 
-This library provide an option for you to build Material color with an image, either it's your static bundled image file, or a local image you get from a device file or photos or gallery or even camera, or an image from a network in React Native app.
+This library provide an option for you to build Material color with an image, either it's from your static bundled image file, or a local image you get from a device file or photos or gallery or even camera, or an image from a network in React Native app.
 
 It's straightforward method, you can use these static methods
 
@@ -175,7 +175,7 @@ export function ReactComponent() {
 }
 ```
 
-From the static method, you will get the same [`MaterialColor`](/docs/definitions/index/classes/MaterialColor) instance. The difference is **the instance could be null**, or thrown an error if the process is timed out or aborted by your own [AbortSignal](https://https://www.google.com/search?client=firefox-b-d&q=AbortSignal).
+From the static method, you will get the same [`MaterialColor`](/docs/definitions/index/classes/MaterialColor) instance in a promise. The difference is the function may throw an error if the process is timed out, or aborted by your own [AbortSignal](https://https://www.google.com/search?client=firefox-b-d&q=AbortSignal), or the image was unprocessable.
 
 ### Processing Options
 
