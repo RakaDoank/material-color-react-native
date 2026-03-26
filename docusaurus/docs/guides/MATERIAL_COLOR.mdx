@@ -125,7 +125,7 @@ console.log(
   }}
 />
 
-This library provide an option for you to build Material color with an image, either it's your static bundled image file, or a local image you get from a device file or photos or gallery, or an image from a network in React Native app.
+This library provide an option for you to build Material color with an image, either it's your static bundled image file, or a local image you get from a device file or photos or gallery or even camera, or an image from a network in React Native app.
 
 It's straightforward method, you can use these static methods
 
@@ -143,7 +143,7 @@ import YourLocalImage from "./_your-image.png"
 // or this
 const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
 
-// or this
+// or this, assumed you get this from document file / photo picker, or even from a camera
 const localImageFileURI = "file:///xxxxxx"
 
 export function ReactComponent() {
@@ -166,7 +166,7 @@ export function ReactComponent() {
         // your logics
       })
 
-      MaterialColor.fromSourceImageUri(localImageFile).then(materialColor => {
+      MaterialColor.fromSourceImageUri(localImageFileURI).then(materialColor => {
         // your logics
       })
 
@@ -230,7 +230,7 @@ import YourLocalImage from "./_your-image.png"
 
 const yourLocalImageUri = Image.resolveAssetSource(YourLocalImage).uri
 
-ImageUtils.sourceColorFromImageUri(yourLocalImageUri) // second argument for maxWidthOrHeight, timeout, signal, other opts in the future
+ImageUtils.sourceColorFromImageUri(yourLocalImageUri) // second argument for the image processing options
   .then(sourceColor => {
     console.log(sourceColor)
     // sourceColor in hex code string
@@ -241,7 +241,7 @@ const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
 // or this
 const localImageFileURI = "file:///xxxxxx"
 
-ImageUtils.sourceColorFromImageUri(onlineImage) // second argument for maxWidthOrHeight, timeout, signal. (other opts in the future)
+ImageUtils.sourceColorFromImageUri(onlineImage) // second argument for the image processing options
   .then(sourceColor => {
     console.log(sourceColor)
     // sourceColor in hex code string
@@ -263,6 +263,7 @@ import {
   MaterialColor,
 } from "material-color-react-native"
 
+// in case you get this from an document or photo picker
 const localFileUri = "file:///xxxxxx"
 
 MaterialColor.fromSourceImage(localFileUri)
@@ -353,7 +354,7 @@ import {
   useMaterialColorFromImageUri,
 } from "material-color-react-native"
 
-// or this
+// use this
 const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
 
 // or this
@@ -361,7 +362,7 @@ const localImageFileURI = "file:///xxxxxx"
 
 export function YourReactComponent() {
 
-  const { data, isLoading, error } = useMaterialColorFromImageUri(onlineImage)
+  const { data, isLoading, error } = useMaterialColorFromImageUri(onlineImage) // file uri
 
   if(data) { // `data` is MaterialColor instance
     console.log(
