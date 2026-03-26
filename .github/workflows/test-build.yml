@@ -9,13 +9,9 @@ on:
       - main
 
 jobs:
-  release:
-    name: Test Build
-    runs-on: ubuntu-22.04
-    environment: release
-    permissions:
-      contents: read
-      id-token: write
+  code-check:
+    name: Test Build - Package
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Use PNPM
@@ -27,12 +23,53 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-          registry-url: https://registry.npmjs.org/
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Code check
         run: npm run code-check
+
+  test-build-package:
+    name: Test Build - Package
+    needs: code-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use PNPM
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+          cache: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Build Package
         run: |
           npm run package-builder
+
+  test-build-docusuaurs:
+    name: Test Build - Docusaurus
+    needs: test-build-package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use PNPM
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+          cache: true
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Docusaurus
+        run: cd docusaurus && npm run build
