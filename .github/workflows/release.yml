@@ -8,7 +8,7 @@ on:
 jobs:
   release:
     name: Release Package
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     environment: release
     permissions:
       contents: read
@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-          registry-url: https://registry.npmjs.org/
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
