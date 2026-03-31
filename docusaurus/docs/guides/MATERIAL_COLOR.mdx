@@ -230,7 +230,7 @@ import YourLocalImage from "./_your-image.png"
 
 const yourLocalImageUri = Image.resolveAssetSource(YourLocalImage).uri
 
-ImageUtils.sourceColorFromImageUri(yourLocalImageUri) // second argument for the image processing options
+ImageUtils.sourceHexColorFromImageUri(yourLocalImageUri) // second argument for the image processing options
   .then(sourceColor => {
     console.log(sourceColor)
     // sourceColor in hex code string
@@ -241,7 +241,7 @@ const onlineImage = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
 // or this
 const localImageFileURI = "file:///xxxxxx"
 
-ImageUtils.sourceColorFromImageUri(onlineImage) // second argument for the image processing options
+ImageUtils.sourceHexColorFromImageUri(onlineImage) // second argument for the image processing options
   .then(sourceColor => {
     console.log(sourceColor)
     // sourceColor in hex code string
