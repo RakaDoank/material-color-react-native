@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - deploy-docusaurus
-  pull_request:
-    branches:
-      - deploy-docusaurus
 
 jobs:
   build:
