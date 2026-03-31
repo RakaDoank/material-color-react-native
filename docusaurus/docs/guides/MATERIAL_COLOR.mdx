@@ -22,7 +22,7 @@ const materialColor = new MaterialColor("#ffde3f")
 > The source color has to be in Hex code format, e.g #RRGGBB, or #RRGGBBAA, or #AARRGGBB
 
 :::info
-Check the [`MaterialColor`](http://localhost:3000/material-color-react-native/docs/definitions/index/classes/MaterialColor) TypeScript definitions to see all its members, methods, and statics.
+Check the [`MaterialColor`](/docs/definitions/index/classes/MaterialColor) TypeScript definitions to see all its members, methods, and statics.
 :::
 
 ## Material Options
@@ -254,9 +254,9 @@ Build Material from Source Image is not compatible in [React Native for Windows]
 
 ### Error Handling
 
-The promise resolver guarantee that return a valid source color from bare `ImageUtils`, or return a valid [`MaterialColor`](http://localhost:3000/material-color-react-native/docs/definitions/index/classes/MaterialColor) instance from the static method, but it might throw an exception if something unexpected ocurred.
+The promise resolver guarantee that return a valid source color from bare `ImageUtils`, or return a valid [`MaterialColor`](/docs/definitions/index/classes/MaterialColor) instance from the static method, but it might throw an exception if something unexpected ocurred.
 
-If this is happened, this library will throw [`ImageUtils.SourceColorFromImageException`](http://localhost:3000/material-color-react-native/docs/definitions/index/namespaces/ImageUtils/classes/SourceColorFromImageException) or [`MaterialColor.SourceImageException`](/docs/definitions/index/classes/MaterialColor#sourceimageexception) class. Both classes are same. You can cast with the `instanceof` operator, and check what type of error happened from the `type` member from that class
+If this is happened, this library will throw [`ImageUtils.SourceColorFromImageException`](/docs/definitions/index/namespaces/ImageUtils/classes/SourceColorFromImageException) or [`MaterialColor.SourceImageException`](/docs/definitions/index/classes/MaterialColor#sourceimageexception) class. Both classes are same. You can cast with the `instanceof` operator, and check what type of error happened from the `type` member from that class
 
 ```tsx
 import {
