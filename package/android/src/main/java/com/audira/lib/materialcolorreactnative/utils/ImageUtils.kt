@@ -25,18 +25,15 @@ object ImageUtils {
     targetCallback: (target: SimpleTarget<Bitmap>) -> Unit,
     callback: (color: Int?) -> Unit,
   ) {
+    var requestOptions = RequestOptions()
+    if(maxWidthOrHeight != null && maxWidthOrHeight > 0) {
+      requestOptions = requestOptions.override(maxWidthOrHeight)
+    }
+
     val target = Glide.with(reactApplicationContext)
       .asBitmap()
       .load(uri.toUri())
-      .apply(object : RequestOptions() {
-        override fun override(size: Int): RequestOptions {
-          if(maxWidthOrHeight != null && maxWidthOrHeight > 0) {
-            return super.override(maxWidthOrHeight)
-          } else {
-            return super.override(size)
-          }
-        }
-      })
+      .apply(requestOptions)
       // At this moment, just skip the memory cache
       // because this library is not doing anything to the Android Lifecycle
       .skipMemoryCache(true)
@@ -49,15 +46,18 @@ object ImageUtils {
           resource: Bitmap,
           transition: Transition<in Bitmap>?
         ) {
-          val x = resource.width
-          val y = resource.height
-          val intArray = IntArray(x * y)
-          resource.getPixels(intArray, 0, x, 0, 0, x, y)
+          CoroutineScope(Dispatchers.Main).launch {
+            val pixels = withContext(Dispatchers.IO) {
+              val x = resource.width
+              val y = resource.height
+              val intArray = IntArray(x * y)
+              resource.getPixels(intArray, 0, x, 0, 0, x, y)
+              intArray
+            }
 
-          CoroutineScope(Dispatchers.Default).launch {
-            callback(
-              sourceColorFromImageBitmap(intArray)
-            )
+            val sourceColor = sourceColorFromImageBitmap(pixels)
+
+            callback(sourceColor)
           }
           // At this moment
           // I don't provide the Coroutines cancellation
