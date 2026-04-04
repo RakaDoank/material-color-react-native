@@ -4,6 +4,8 @@
 
 Bring material color utilities from the [`@material-foundation/material-color-utilities`](https://github.com/material-foundation/material-color-utilities), including the material color builder from an image, and the special [Android Dynamic Color](https://developer.android.com/develop/ui/views/theming/dynamic-colors).
 
+![screenshot](https://github.com/RakaDoank/material-color-react-native/blob/main/docusaurus/static/img/screenshot.png?raw=true)
+
 ## Motives
 
 Basically, this library is similar as other libraries you can found to build material color, as [The Science of Color & Design](https://m3.material.io/blog/science-of-color-design) has been done by a Google engineer including their [source code](https://github.com/material-foundation/material-color-utilities), but the inexistence of the utility for building material color from an image for React Native especially on Android, iOS (including macOS) is really the main motive why [`material-color-react-native`](https://github.com/RakaDoank/material-color-react-native) was created.
