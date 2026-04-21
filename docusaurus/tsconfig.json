@@ -3,9 +3,6 @@
 		"@docusaurus/tsconfig",
 		"../tsconfig.base.json"
 	],
-	"compilerOptions": {
-		"baseUrl": "."
-	},
 	"mdx": {
 		"checkMdx": true
 	},
