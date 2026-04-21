@@ -10,7 +10,7 @@
 	},
 	"devDependencies": {
 		"@eslint/compat": "2.0.3",
-		"@react-native/eslint-config": "0.83.2",
+		"@react-native/eslint-config": "0.83.6",
 		"@stylistic/eslint-plugin": "5.10.0",
 		"@types/node": "^24",
 		"@types/color": "4.2.1",
@@ -23,9 +23,9 @@
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "7.0.1",
 		"eslint-plugin-react-native": "^5.0.0",
-		"globals": "^17.4.0",
+		"globals": "^17.5.0",
 		"package-builder": "workspace:*",
-		"typescript": "5.9.3",
-		"typescript-eslint": "8.57.1"
+		"typescript": "6.0.3",
+		"typescript-eslint": "8.59.0"
 	}
 }
