@@ -54,5 +54,10 @@
 		"android": {
 			"javaPackageName": "com.audira.lib.materialcolorreactnative"
 		}
-	}
+	},
+	"keywords": [
+		"material-color-utilities",
+		"react-native",
+		"material-design"
+	]
 }
