@@ -8,9 +8,9 @@ Bring material color utilities from the [`@material-foundation/material-color-ut
 
 ## Motives
 
-Basically, this library is similar as other libraries you can found to build material color, as [The Science of Color & Design](https://m3.material.io/blog/science-of-color-design) has been done by a Google engineer including their [source code](https://github.com/material-foundation/material-color-utilities), but the inexistence of the utility for building material color from an image for React Native especially on Android, iOS (including macOS) is really the main motive why [`material-color-react-native`](https://github.com/RakaDoank/material-color-react-native) was created.
+Basically, this library is similar as other libraries you can found to build material color, as [The Science of Color & Design](https://m3.material.io/blog/science-of-color-design) has been done by a Google engineer including their [source code](https://github.com/material-foundation/material-color-utilities), but the inexistence of the utility for building material color from an image for React Native especially on Android, iOS (including macOS) is really the main motive why `material-color-react-native` was created.
 
-Bringing the material color utility from an image is a personal challenge. Previously, I have to use [React Native Skia](https://github.com/Shopify/react-native-skia) on Android app to get a Bitmap from an image, because the original [source code](https://github.com/material-foundation/material-color-utilities) from Material Foundation is using HTML Canvas which is really not a compatible for non Web platform, and using the React Native Skia only for that utility is really an overkill.
+Bringing the material color utility from an image is a personal challenge. Previously, I have to use React Native Skia on Android app to get a Bitmap from an image, because the original [source code](https://github.com/material-foundation/material-color-utilities) from Material Foundation is using HTML Canvas which is really not a compatible for non Web platform, and using the React Native Skia only for that utility is really an overkill.
 
 ## Compatibility
 
