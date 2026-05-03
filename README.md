@@ -30,4 +30,4 @@ This library is only supported on React Native New Architecture, and the materia
 
 ## Documentation
 
-Go to https://rakadoank.github.io/material-color-react-native
+Go to https://oss.sufeni.id/material-color-react-native
