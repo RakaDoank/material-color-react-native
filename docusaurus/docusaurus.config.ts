@@ -35,7 +35,7 @@ const config: Config = {
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: "RakaDoank", // Usually your GitHub org/user name.
-	projectName: "docusaurus", // Usually your repo name.
+	projectName: "material-color-react-native", // Usually your repo name.
 
 	onBrokenLinks: "throw",
 

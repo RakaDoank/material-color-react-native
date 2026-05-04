@@ -34,7 +34,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
     didCreateDispatch(dispatchBlock);
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), dispatchBlock);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), dispatchBlock);
     return;
   }
   
@@ -45,7 +45,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
       });
       return;
     }
-    
+
     dispatchBlock = dispatch_block_create(DISPATCH_BLOCK_BARRIER, ^{
       UIImage *image = [UIImage imageWithData:data];
       NSNumber *color = [self sourceColorFromImage:image maxWidthOrHeight:maxWidthOrHeight];
@@ -56,7 +56,7 @@ typedef void (^SourceColorFromImageDispatchCallback)(dispatch_block_t targetBloc
 
     didCreateDispatch(dispatchBlock);
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), dispatchBlock);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), dispatchBlock);
   }];
 
   didCreateTask(task);

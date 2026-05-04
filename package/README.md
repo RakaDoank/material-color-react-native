@@ -6,7 +6,7 @@ Bring material color utilities from the [`@material-foundation/material-color-ut
 
 ## Documentation
 
-Go to https://rakadoank.github.io/material-color-react-native
+Go to https://oss.sufeni.id/material-color-react-native
 
 ## Directory
 
