@@ -1,10 +1,6 @@
 // from react-native-paper
 import Color from "color"
 
-// import {
-// 	normal as normalBlend,
-// } from "color-blend"
-
 import {
 	MD3DarkTheme,
 	MD3LightTheme,
@@ -188,28 +184,3 @@ function prepareElevations(primary: string, surface: string): MD3Colors['elevati
 
   return elevations as MD3Colors['elevation']
 }
-
-// function blendColor(
-// 	backgroundHex: string,
-// 	foregroundHex: string,
-// ) {
-// 	const bg = Color(backgroundHex)
-// 	const fg = Color(foregroundHex)
-
-// 	const blended = normalBlend(
-// 		{
-// 			r: bg.red(),
-// 			g: bg.green(),
-// 			b: bg.blue(),
-// 			a: bg.alpha(),
-// 		},
-// 		{
-// 			r: fg.red(),
-// 			g: fg.green(),
-// 			b: fg.blue(),
-// 			a: fg.alpha(),
-// 		},
-// 	)
-
-// 	return Color.rgb(blended.r, blended.g, blended.b).string()
-// }
