@@ -124,6 +124,7 @@ export class PaperColorAdapter implements MD3Colors {
 		this.inversePrimary = data.colorScheme.inversePrimary
 		this.shadow = data.colorScheme.shadow
 		this.scrim = data.colorScheme.scrim
+		this.elevation = prepareElevations(data.colorScheme.primary, data.colorScheme.surface)
 
 		// +++++ fix inexistence props +++++
 
@@ -150,33 +151,6 @@ export class PaperColorAdapter implements MD3Colors {
 				.alpha(0.4)
 				.rgb()
 				.string()
-
-			// can't figure it out
-			// this.elevation = {
-			// 	level0: "transparent",
-			// 	level1: blendColor(
-			// 		data.primaryPalette.tone(80),
-			// 		Color(data.primaryPalette.tone(80)).alpha(0.05).rgb().string(),
-			// 	),
-			// 	level2: blendColor(
-			// 		data.primaryPalette.tone(80),
-			// 		Color(data.primaryPalette.tone(80)).alpha(0.08).rgb().string(),
-			// 	),
-			// 	level3: blendColor(
-			// 		data.primaryPalette.tone(80),
-			// 		Color(data.primaryPalette.tone(80)).alpha(0.11).rgb().string(),
-			// 	),
-			// 	level4: blendColor(
-			// 		data.primaryPalette.tone(80),
-			// 		Color(data.primaryPalette.tone(80)).alpha(0.12).rgb().string(),
-			// 	),
-			// 	level5: blendColor(
-			// 		data.primaryPalette.tone(80),
-			// 		Color(data.primaryPalette.tone(80)).alpha(0.14).rgb().string(),
-			// 	),
-			// }
-
-			this.elevation = MD3DarkTheme.colors.elevation
 		} else {
 			this.surfaceDisabled = Color(data.neutralPalette.tone(10))
 				.alpha(0.12)
@@ -191,39 +165,28 @@ export class PaperColorAdapter implements MD3Colors {
 			this.scrim = data.neutralPalette.tone(0)
 
 			this.backdrop = Color(data.neutralVariantPalette.tone(20)).alpha(0.4).rgb().string()
-
-			// can't figure it out
-			// this.elevation = {
-			// 	level0: "transparent",
-			// 	level1: blendColor(
-			// 		data.primaryPalette.tone(99),
-			// 		Color(data.primaryPalette.tone(40)).alpha(0.05).rgb().string(),
-			// 	),
-			// 	level2: blendColor(
-			// 		data.primaryPalette.tone(99),
-			// 		Color(data.primaryPalette.tone(40)).alpha(0.08).rgb().string(),
-			// 	),
-			// 	level3: blendColor(
-			// 		data.primaryPalette.tone(99),
-			// 		Color(data.primaryPalette.tone(40)).alpha(0.11).rgb().string(),
-			// 	),
-			// 	level4: blendColor(
-			// 		data.primaryPalette.tone(99),
-			// 		Color(data.primaryPalette.tone(40)).alpha(0.12).rgb().string(),
-			// 	),
-			// 	level5: blendColor(
-			// 		data.primaryPalette.tone(99),
-			// 		Color(data.primaryPalette.tone(40)).alpha(0.14).rgb().string(),
-			// 	),
-			// }
-
-			this.elevation = MD3LightTheme.colors.elevation
 		}
 
 		// ----- fix inexistence props -----
 
 	}
 
+}
+
+const elevationLevels = [0.05, 0.08, 0.11, 0.12, 0.14];
+function prepareElevations(primary: string, surface: string): MD3Colors['elevation'] {
+  let elevations: Record<string, string> = {
+    level0: 'transparent',
+  }
+
+  for (let i = 0; i < elevationLevels.length; i++) {
+    elevations[`level${i + 1}`] = Color(surface)
+      .mix(Color(primary), Number(elevationLevels[i]))
+      .rgb()
+      .string()
+  }
+
+  return elevations as MD3Colors['elevation']
 }
 
 // function blendColor(
