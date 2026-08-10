@@ -168,17 +168,17 @@ export class PaperColorAdapter implements MD3Colors {
 }
 
 const elevationLevels = [0.05, 0.08, 0.11, 0.12, 0.14];
-function prepareElevations(primary: string, surface: string): MD3Colors['elevation'] {
-  let elevations: Record<string, string> = {
-    level0: 'transparent',
-  }
+function prepareElevations(primary: string, surface: string): MD3Colors["elevation"] {
+	const elevations: Record<string, string> = {
+		level0: "transparent",
+	}
 
-  for (let i = 0; i < elevationLevels.length; i++) {
-    elevations[`level${i + 1}`] = Color(surface)
-      .mix(Color(primary), Number(elevationLevels[i]))
-      .rgb()
-      .string()
-  }
+	for(let i = 0; i < elevationLevels.length; i++) {
+		elevations[`level${i + 1}`] = Color(surface)
+			.mix(Color(primary), Number(elevationLevels[i]))
+			.rgb()
+			.string()
+	}
 
-  return elevations as MD3Colors['elevation']
+	return elevations as MD3Colors["elevation"]
 }
