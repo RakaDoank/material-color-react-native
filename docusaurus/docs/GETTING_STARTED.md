@@ -24,7 +24,18 @@ yarn add material-color-react-native
 pnpm install material-color-react-native
 ```
 
-🎉 That's it, no additional steps needed.
+___
+#### For iOS or macOS in bare React Native
+
+After the library is added to your project's `node_modules`, do the pod installation in the `ios` or `macos` directory of your project
+
+```bash
+cd ios && pod install
+```
+> :warning: Do not do this in Expo with [Continuous Native Generation (CNG)](https://docs.expo.dev/workflow/continuous-native-generation/) project. This step has been done automatically.
+___
+
+🎉 That's it. You're good to go!
 
 ## Usage
 
