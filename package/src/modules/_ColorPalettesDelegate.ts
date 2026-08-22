@@ -13,7 +13,7 @@ import {
 
 export class ColorPalettesDelegate {
 
-	readonly primaryPalette: ColorPaletteHex
+			readonly primaryPalette: ColorPaletteHex
 	readonly secondaryPalette: ColorPaletteHex
 	readonly tertiaryPalette: ColorPaletteHex
 	readonly errorPalette: ColorPaletteHex
