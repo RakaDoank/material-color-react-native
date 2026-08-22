@@ -12,7 +12,9 @@ import {
 
 import * as ExpoImagePicker from "expo-image-picker"
 
-import * as ExpoStatusBar from "expo-status-bar"
+import {
+	StatusBar,
+} from "expo-status-bar"
 
 import {
 	AndroidDynamicColor,
@@ -62,6 +64,7 @@ export function Actions() {
 
 	const
 		fromStaticImage =
+			// eslint-disable-next-line react-hooks/preserve-manual-memoization
 			useCallback((
 				image: typeof StaticImage1,
 			) => {
@@ -96,6 +99,7 @@ export function Actions() {
 			]),
 
 		fromLocalImage =
+			// eslint-disable-next-line react-hooks/preserve-manual-memoization
 			useCallback(async () => {
 				try {
 					// You can use other photo/file picker module here
@@ -142,6 +146,7 @@ export function Actions() {
 			]),
 
 		fromRemoteImage =
+			// eslint-disable-next-line react-hooks/preserve-manual-memoization
 			useCallback(async () => {
 				snackbarRef.current?.setMessage("Processing…")
 
@@ -187,7 +192,7 @@ export function Actions() {
 						label: "Android Dynamic Color",
 						onPress() {
 							themeContext.setAndroidDynamicColor("dynamic")
-							ExpoStatusBar.setStatusBarStyle(
+							StatusBar.setStyle(
 								Appearance.getColorScheme() === "dark" ? "light" : "dark",
 							)
 						},
@@ -196,18 +201,19 @@ export function Actions() {
 						label: "Android Dynamic Dark Color",
 						onPress() {
 							themeContext.setAndroidDynamicColor("dark")
-							ExpoStatusBar.setStatusBarStyle("light")
+							StatusBar.setStyle("light")
 						},
 					}, {
 						icon: "wallpaper",
 						label: "Android Dynamic Light Color",
 						onPress() {
 							themeContext.setAndroidDynamicColor("light")
-							ExpoStatusBar.setStatusBarStyle("dark")
+							StatusBar.setStyle("dark")
 						},
 					})
 				}
 
+				/* eslint-disable react-hooks/refs */
 				data.push({
 					icon: "file-image",
 					label: "Static Import Image 1",
@@ -247,6 +253,7 @@ export function Actions() {
 						modalInputColorRef.current?.present()
 					},
 				})
+				/* eslint-enable react-hooks/refs */
 
 				return data
 			}, [

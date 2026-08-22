@@ -44,8 +44,9 @@ export function ModalInputColor({
 		onChangeTextHexColor: NonNullable<TextInputProps["onChangeText"]> =
 			useCallback(text => {
 				hexColorText.current = text
-			}, []),
+			}, [])
 
+	const
 		submitHandler =
 			useCallback(() => {
 				// Use `argbFromHex` from @material/material-color-utilities
@@ -56,6 +57,7 @@ export function ModalInputColor({
 					}
 					argbFromHex(hexColorText.current)
 					const value = hexColorText.current
+					// eslint-disable-next-line react-hooks/immutability
 					hexColorText.current = ""
 					onSubmit(value)
 					setVisible(false)
