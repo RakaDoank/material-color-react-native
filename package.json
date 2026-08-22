@@ -3,9 +3,10 @@
 	"private": true,
 	"scripts": {
 		"code-check": "npm run type-check && npm run lint",
-		"lint": "eslint .",
+		"lint": "eslint",
 		"package-builder": "package-builder",
 		"pnpm-clean-install": "node ./scripts/pnpm-clean-install.mjs",
+		"prepare": "husky",
 		"type-check": "tsc --build"
 	},
 	"devDependencies": {
@@ -25,6 +26,8 @@
 		"eslint-plugin-react-hooks": "7.1.1",
 		"eslint-plugin-react-native": "5.0.0",
 		"globals": "17.11.0",
+		"husky": "9.1.7",
+		"lint-staged": "17.3.0",
 		"package-builder": "workspace:*",
 		"typescript": "6.0.3",
 		"typescript-eslint": "8.67.0"
