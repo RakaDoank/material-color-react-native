@@ -379,6 +379,7 @@ export default EslintConfig.defineConfig([
 		files: [
 			"./docusaurus/*.{js,mjs,ts}",
 			"./example/*.config.js",
+			"./lint-staged.config.mjs",
 			"./scripts/**/*.{js,mjs}",
 			"./package-builder/**/*.{js,mjs}",
 			"./storybook/*.{js,mjs}",
