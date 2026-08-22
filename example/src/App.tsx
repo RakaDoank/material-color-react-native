@@ -1,8 +1,4 @@
 import {
-	Stack,
-} from "expo-router"
-
-import {
 	SafeAreaProvider,
 } from "react-native-safe-area-context"
 
@@ -10,16 +6,16 @@ import {
 	ThemeProvider,
 } from "@/providers"
 
-export default function Layout() {
+import {
+	HomeScreen,
+} from "@/screens"
+
+export function App() {
 
 	return (
 		<SafeAreaProvider>
 			<ThemeProvider>
-				<Stack
-					screenOptions={{
-						headerShown: false,
-					}}
-				/>
+				<HomeScreen.Page/>
 			</ThemeProvider>
 		</SafeAreaProvider>
 	)

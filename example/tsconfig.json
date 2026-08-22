@@ -1,23 +1,28 @@
 {
-	"extends": [	
-		"expo/tsconfig.base",
-		"../tsconfig.base.json"
-	],
-	"compilerOptions": {
-		"paths": {
-			"@/*": ["./src/*/index"],
-			"material-color-react-native": ["../package/src/index"],
-			"material-color-react-native/react-native-paper": ["../package/src/subpaths/react-native-paper/index"]
-		},
-		"types": [
-			"react-native-web"
-		]
-	},
-	"include": [
-		"../package/src/**/*",
-		"./app.config.ts",
-		"./src/**/*",
-		".expo/types/**/*.ts",
-		"expo-env.d.ts"
-	]
+  "extends": [
+    "expo/tsconfig.base",
+    "../tsconfig.base.json"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./src/*/index"
+      ],
+      "material-color-react-native": [
+        "../package/src/index"
+      ],
+      "material-color-react-native/react-native-paper": [
+        "../package/src/subpaths/react-native-paper/index"
+      ]
+    },
+    "types": [
+      "react-native-web"
+    ]
+  },
+  "include": [
+    "../package/src/**/*",
+    "./app.config.ts",
+    "./index.ts",
+    "./src/**/*"
+  ]
 }

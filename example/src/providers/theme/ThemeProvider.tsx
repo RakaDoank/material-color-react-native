@@ -4,14 +4,16 @@ import {
 } from "react"
 
 import {
+	StyleSheet,
+	View,
 	useColorScheme,
 } from "react-native"
 
-import {
-	DarkTheme as NavigationDarkTheme,
-	DefaultTheme as NavigationDefaultTheme,
-	ThemeProvider as ReactNavigationThemeProvider,
-} from "@react-navigation/native"
+// import {
+// 	DarkTheme as NavigationDarkTheme,
+// 	DefaultTheme as NavigationDefaultTheme,
+// 	ThemeProvider as ReactNavigationThemeProvider,
+// } from "@react-navigation/native"
 
 import {
 	useAndroidDynamicColorCompat,
@@ -23,10 +25,10 @@ import {
 } from "material-color-react-native/react-native-paper"
 
 import {
-	MD3DarkTheme,
-	MD3LightTheme,
+	// MD3DarkTheme,
+	// MD3LightTheme,
 	PaperProvider,
-	adaptNavigationTheme,
+	// adaptNavigationTheme,
 } from "react-native-paper"
 
 import {
@@ -99,7 +101,12 @@ export function ThemeProvider({
 		colorScheme =
 			state.withAndroidDynamicColor
 				? androidDynamicColor.colorScheme
-				: materialColor.colorScheme
+				: materialColor.colorScheme,
+
+		colors =
+			state.withAndroidDynamicColor
+				? PaperColorAdapter.fromAndroidDynamicColor(androidDynamicColor)
+				: PaperColorAdapter.fromMaterialColor(materialColor)
 
 	return (
 		<ThemeContext.Provider
@@ -115,12 +122,20 @@ export function ThemeProvider({
 				theme={{
 					isV3: true,
 					dark: isDark,
-					colors: state.withAndroidDynamicColor
-						? PaperColorAdapter.fromAndroidDynamicColor(androidDynamicColor)
-						: PaperColorAdapter.fromMaterialColor(materialColor),
+					colors,
 				}}
 			>
-				<ReactNavigationThemeProvider
+				<View
+					style={ [
+						styleSheet.bgView,
+						{
+							backgroundColor: colors.background,
+						},
+					] }
+				>
+					{ children }
+				</View>
+				{/* <ReactNavigationThemeProvider
 					value={ isDark ? {
 						...MD3DarkTheme,
 						...adaptedNavigationTheme.DarkTheme,
@@ -136,9 +151,9 @@ export function ThemeProvider({
 							...adaptedNavigationTheme.LightTheme.colors,
 						},
 					} }
-				>
-					{ children }
-				</ReactNavigationThemeProvider>
+				> */}
+				{/* children */}
+				{/* </ReactNavigationThemeProvider> */}
 			</PaperProvider>
 		</ThemeContext.Provider>
 	)
@@ -149,8 +164,15 @@ const
 	initialSourceColor =
 		"#ffde3f",
 
-	adaptedNavigationTheme =
-		adaptNavigationTheme({
-			reactNavigationLight: NavigationDefaultTheme,
-			reactNavigationDark: NavigationDarkTheme,
+	styleSheet =
+		StyleSheet.create({
+			bgView: {
+				flex: 1,
+			},
 		})
+
+// adaptedNavigationTheme =
+// 	adaptNavigationTheme({
+// 		reactNavigationLight: NavigationDefaultTheme,
+// 		reactNavigationDark: NavigationDarkTheme,
+// 	})

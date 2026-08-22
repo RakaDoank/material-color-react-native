@@ -77,7 +77,7 @@ export default {
 
 	experiments: {
 		autolinkingModuleResolution: true,
-		typedRoutes: true,
+		typedRoutes: false,
 		reactCompiler: false,
 	},
 
