@@ -1,7 +1,7 @@
 {
 	"name": "example",
 	"private": true,
-	"main": "expo-router/entry",
+	"main": "index.ts",
 	"scripts": {
 		"android": "expo run:android --variant debugOptimized",
 		"ios": "expo run:ios",
@@ -11,23 +11,22 @@
 		"web": "npm run start -- --web"
 	},
 	"dependencies": {
-		"expo": "55.0.16",
-		"expo-build-properties": "55.0.13",
-   		"expo-image": "55.0.9",
-		"expo-image-picker": "55.0.19",
-    	"expo-router": "55.0.13",
-		"expo-splash-screen": "55.0.19",
-		"expo-status-bar": "55.0.5",
-    	"expo-system-ui": "55.0.16",
+		"@react-native-vector-icons/material-design-icons": "13.1.3",
+		"expo": "57.0.15",
+		"expo-build-properties": "57.0.13",
+   		"expo-image": "57.0.3",
+		"expo-image-picker": "57.0.12",
+		"expo-splash-screen": "57.0.7",
+		"expo-status-bar": "57.0.1",
+    	"expo-system-ui": "57.0.2",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"react-native": "0.83.6",
-		"react-native-paper": "5.15.1",
+		"react-native": "0.86.2",
+		"react-native-paper": "5.15.3",
 		"react-native-web": "0.21.2",
-		"react-native-safe-area-context": "5.7.0",
-		"react-native-screens": "4.24.0"
+		"react-native-safe-area-context": "5.7.0"
 	},
 	"devDependencies": {
-		"expo-dev-client": "~55.0.28"
+		"expo-dev-client": "57.0.14"
 	}
 }
