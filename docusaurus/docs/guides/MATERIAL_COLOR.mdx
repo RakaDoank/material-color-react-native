@@ -199,7 +199,7 @@ MaterialColor.fromSourceImage(
 
 #### maxWidthOrHeight
 
-This option is recommended to increase performance by limiting the image Bitmap. While it cannot guarantee to get the same result as the original image size, because the possibility of original color in a pixel will be blended into another and lose its channel if it shrunk, but you can still save to use it. Default value is the original image size (`undefined`).
+This option is recommended to increase performance by limiting the image Bitmap. While it cannot guarantee to get the same result as the original image size, because the possibility of original color in a pixel will be blended into another and lose its channel if it shrunk, but it is relatively save to use it. Default value is the original image size (`undefined`).
 
 :::info
 For your references, Bitmap represents as color each pixel in a image. In a Android, iOS, macOS, and Web, this library holds the buffer of the image's Bitmap in a 32 bit unsigned integer which contain 4 bytes each ARGB/RGBA color pixels or 8 bits per color channel pixel. For instance, an 1000x1000 image will has 4MB buffer allocated on the heap.
