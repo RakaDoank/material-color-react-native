@@ -15,7 +15,7 @@ const
 	packageDir =
 		node_path.join(rootDir, "package")
 
-// build the package
+// bob the package
 node_childProcess.execSync(
 	"bun run package-builder",
 	{
@@ -24,7 +24,6 @@ node_childProcess.execSync(
 	},
 )
 
-// create tarball file
 {
 	// copy the LICENSE from the root
 	node_fs.cpSync(
@@ -32,6 +31,7 @@ node_childProcess.execSync(
 		node_path.join(packageDir, "LICENSE"),
 	)
 
+	// create tarball file
 	node_childProcess.execSync(
 		"bun pm pack",
 		{
@@ -43,7 +43,7 @@ node_childProcess.execSync(
 	let publishCommand =
 		"bunx npm publish"
 			+ ` ./${packageJson.name}-${packageJson.version}.tgz`
-			+ " --access public --dry-run"
+			+ " --access public"
 
 	const prereleaseTag = SemverPrerelease(packageJson.version)
 	if(typeof prereleaseTag?.[0] == "string") {
