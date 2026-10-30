@@ -5,35 +5,54 @@
 		"code-check": "npm run type-check && npm run lint",
 		"lint": "eslint",
 		"package-builder": "package-builder",
-		"pnpm-clean-install": "node ./scripts/pnpm-clean-install.mjs",
+		"bun-clean-install": "bun ./scripts/bun-clean-install.mts",
 		"prepare": "husky",
-		"type-check": "tsc --build"
+		"type-check": "bun check --build",
+		"type-check:ts": "tsc --build"
+	},
+	"workspaces": {
+		"packages": [
+			"docusaurus",
+			"example",
+			"package",
+			"package-builder"
+		],
+		"catalog": {
+			"react": "19.2.3",
+			"react-dom": "19.2.3"
+		}
 	},
 	"devDependencies": {
-		"@eslint/compat": "2.1.0",
+		"@eslint/compat": "2.1.1",
 		"@eslint/js": "10.0.1",
 		"@react-native/eslint-config": "0.86.2",
 		"@stylistic/eslint-plugin": "5.10.0",
+		"@types/bun": "^1.4.4",
 		"@types/node": "^24",
 		"@types/color": "4.2.1",
-		"@types/react": "19.2.14",
-		"@types/react-dom": "19.2.4",
-		"@types/react-native-web": "0.19.2",
-		"eslint": "10.9.0",
+		"@types/react": "19.3.0",
+		"@types/react-dom": "19.3.0",
+		"@types/react-native-web": "0.19.3",
+		"@types/semver": "7.8.0",
+		"eslint": "10.13.0",
 		"eslint-import-resolver-typescript": "4.4.5",
 		"eslint-plugin-import-x": "4.17.1",
 		"eslint-plugin-react": "7.37.5",
 		"eslint-plugin-react-hooks": "7.1.1",
 		"eslint-plugin-react-native": "5.0.0",
-		"globals": "17.11.0",
+		"globals": "17.13.0",
 		"husky": "9.1.7",
-		"lint-staged": "17.3.0",
+		"lint-staged": "17.6.0",
 		"package-builder": "workspace:*",
+		"semver": "7.8.5",
 		"typescript": "6.0.3",
-		"typescript-eslint": "8.67.0"
+		"typescript-eslint": "8.72.1"
 	},
+	"trustedDependencies": [
+		"@swc/core"
+	],
 	"engines": {
-		"node": ">=24",
-		"pnpm": ">=11"
+		"bun": "^1.4.4",
+		"node": ">=24"
 	}
 }

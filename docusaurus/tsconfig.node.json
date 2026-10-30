@@ -1,0 +1,10 @@
+{
+	"extends": "../tsconfig.base.node.json",
+	"compilerOptions": {
+		"composite": true
+	},
+	"include": [
+		"./docusaurus.config.ts",
+		"./sidebars.ts"
+	]
+}

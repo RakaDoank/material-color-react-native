@@ -8,7 +8,7 @@
 		"prebuild": "expo prebuild",
 		"prebuild:clean": "expo prebuild --clean",
     	"start": "expo start",
-		"web": "npm run start -- --web"
+		"web": "bun run start -- --web"
 	},
 	"dependencies": {
 		"@react-native-vector-icons/material-design-icons": "13.1.3",

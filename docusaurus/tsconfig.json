@@ -1,19 +1,7 @@
 {
-	"extends": [
-		"@docusaurus/tsconfig",
-		"../tsconfig.base.json"
-	],
-	"mdx": {
-		"checkMdx": true
-	},
-	"include": [
-		"./docusaurus.config.ts",
-		"./sidebars.ts",
-		"./docs/definitions/typedoc-sidebar.cjs",
-		"./src/**/*"
-	],
-	"exclude": [
-		".docusaurus",
-		"build"
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.docusaurus.json" },
+		{ "path": "./tsconfig.node.json" }
 	]
 }

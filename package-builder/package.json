@@ -2,8 +2,8 @@
 	"name": "package-builder",
 	"version": "0.0.1",
 	"private": true,
-	"bin": "./scripts/bin.mjs",
+	"bin": "./scripts/bin.mts",
 	"devDependencies": {
-		"react-native-builder-bob": "0.40.18"
+		"react-native-builder-bob": "0.44.1"
 	}
 }

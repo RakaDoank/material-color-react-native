@@ -13,22 +13,17 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Use PNPM
-        uses: pnpm/action-setup@v6
-        with:
-          # temporarily stick to the 11.11.0 because 11.12.0 has issue in Action
-          # https://github.com/pnpm/action-setup/issues/276
-          version: 11.11.0
-          cache: true
+      - name: Bun
+        uses: oven-sh/setup-bun@v2
+        # use package.json - engines.bun for the Bun version
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
       - name: Build Docusaurus
-        run: cd docusaurus && npm run build
+        run: cd docusaurus && bun run build
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v4
         with:

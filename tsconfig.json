@@ -1,11 +1,9 @@
 {
 	"files": [],
 	"references": [
-		{
-			"path": "./example"
-		},
-		{
-			"path": "./package"
-		}
+		{ "path": "./example" },
+		{ "path": "./package" },
+		{ "path": "./package-builder" },
+		{ "path": "./tsconfig.node.json" }
 	]
 }

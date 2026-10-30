@@ -193,6 +193,7 @@ export function Actions() {
 						onPress() {
 							themeContext.setAndroidDynamicColor("dynamic")
 							StatusBar.setStyle(
+								// @ts-expect-error Bun check false positive
 								Appearance.getColorScheme() === "dark" ? "light" : "dark",
 							)
 						},
@@ -201,6 +202,7 @@ export function Actions() {
 						label: "Android Dynamic Dark Color",
 						onPress() {
 							themeContext.setAndroidDynamicColor("dark")
+							// @ts-expect-error Bun check false positive
 							StatusBar.setStyle("light")
 						},
 					}, {
@@ -208,6 +210,7 @@ export function Actions() {
 						label: "Android Dynamic Light Color",
 						onPress() {
 							themeContext.setAndroidDynamicColor("light")
+							// @ts-expect-error Bun check false positive
 							StatusBar.setStyle("dark")
 						},
 					})

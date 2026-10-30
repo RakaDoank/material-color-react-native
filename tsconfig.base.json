@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
+		"allowJs": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		"composite": true,
 		"esModuleInterop": true,
 		"isolatedModules": true,
 		"moduleSuffixes": [".android", ".ios", ".macos", ".windows", ".native", ".web", ""],
@@ -10,15 +10,14 @@
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
-		"noImplicitUseStrict": false,
 		"noImplicitOverride": true,
-		"noStrictGenericChecks": false,
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"resolveJsonModule": true,
 		"resolvePackageJsonImports": false,
+		"skipLibCheck": true,
 		"strict": true,
-		"verbatimModuleSyntax": true,
+		"verbatimModuleSyntax": true
 	}
 }
