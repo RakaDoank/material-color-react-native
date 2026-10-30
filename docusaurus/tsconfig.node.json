@@ -4,7 +4,7 @@
 		"composite": true
 	},
 	"include": [
-		"./docusaurus.config.ts",
+		"docusaurus.config.mts",
 		"./sidebars.ts"
 	]
 }

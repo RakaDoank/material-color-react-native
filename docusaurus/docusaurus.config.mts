@@ -152,6 +152,10 @@ const config: Config = {
 					title: "Other Libraries",
 					items: [
 						{
+							label: "uws-react-native",
+							to: "https://github.com/RakaDoank/uws-react-native",
+						},
+						{
 							label: "carbon-react-native",
 							to: "https://github.com/RakaDoank/carbon-react-native",
 						},
