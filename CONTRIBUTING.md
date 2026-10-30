@@ -33,7 +33,7 @@ You don't have to know it all at advanced level. **Feel free to learn and embrac
 ## Environments
 Before you clone this repository, you need to add these in your machine
 - [Node.js](https://nodejs.org) >=22
-- [PNPM](https://pnpm.io) >= 10
+- [Bun](https://bun.com) >= 1.4.4
 - [Visual Studio Code](https://code.visualstudio.com) (Optional)
   - [ESLint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Android Studio](https://developer.android.com/studio) with Meerkat version or latest version for Android development
@@ -51,7 +51,7 @@ Make your environment is ready and the repository has been cloned. After that, d
 ### 1. NPM Dependencies Installation
 Go to the repository's directory in your terminal or cmd and do the installation with your `pnpm`
 ```
-pnpm install
+bun install
 ```
 
 This installation will install all the npm dependencies including the `react-native` example app.
@@ -93,7 +93,7 @@ After it's completely booted up, you can run the app. Go the `example` directory
 ### JavaScript/TypeScript
 All the JavaScript/TypeScript has been lint-checked with ESLint, and type-checked with TypeScript. Please follow the rule that has been made e.g indentation with Tab. Do not modify the rule or add `// eslint-disable` mark to your code with no reasons.
 
-While development, ensure that your ESLint Extension of your Visual Studio Code is running if you are using that IDE. Alternatively, you can run `npm run code-check` in the root of repository.
+While development, ensure that your ESLint Extension of your Visual Studio Code is running if you are using that IDE. Alternatively, you can run `bun run code-check` in the root of repository.
 
 You can check the lint rules at [material-color-react-native/eslint.config.mjs](https://github.com/RakaDoank/material-color-react-native/blob/main/eslint.config.mjs) and the `compilerOptions` of TypeScript at [material-color-react-native/tsconfig.json](https://github.com/RakaDoank/material-color-react-native/blob/main/tsconfig.base.json) and other `tsconfig.json` files in the `example` and `package` directory.
 
